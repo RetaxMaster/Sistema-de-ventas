@@ -44,3 +44,10 @@
     grid-gap: 40px;
     grid-template-rows: auto auto;
 }
+
+#Vendidos {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    grid-template-rows: auto auto auto;
+}

@@ -1,0 +1,81 @@
+h1 {
+    font-size: 2.4em;
+}
+
+#Vendidos nav {
+    display: flex;
+    justify-content: center;
+}
+
+#AllProducts>div {
+    padding: 20px;
+}
+
+#AllProducts .all-products {
+    padding: 0;
+}
+
+#AllProducts .search {
+    border-bottom: 1px solid #ccc;
+}
+
+#AllProducts .product,
+#AllProducts .product .contenido {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#AllProducts .product {
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;    
+}
+#AllProducts .product:last-child {
+    border-bottom: none;
+}
+
+#AllProducts .product .image-container {
+    width: 100px;
+    overflow: hidden;
+    max-height: 135px;
+}
+
+#AllProducts .product .image-container img {
+    max-height: 100%;
+}
+
+#AllProducts .product .description {
+    max-height: 60px;
+    overflow: hidden;
+}
+
+#AllProducts .product .contenido {
+    width: calc(100% - 100px);
+    padding: 0 20px;
+}
+
+#AllProducts .product .contenido .payed {
+    font-weight: bold;
+}
+
+#AllProducts .contenido .data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 177px);
+}
+
+#AllProducts .contenido .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 177px;
+    color: #636060;
+}
+
+#AllProducts .contenido .actions .selled-by {
+    margin-bottom: 10px;
+}
