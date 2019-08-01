@@ -30,3 +30,10 @@
                          
 
 }
+
+#UserForm {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: ". . . form form form form form form . . ."
+}

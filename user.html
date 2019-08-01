@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/user.css">
+    <title>Ventas</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Ventas<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Caja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Vendidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Registrar usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-power-off"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content" id="UserForm">
+        <form class="card" action="#" method="post">
+            <h1><i class="fas fa-user"></i> Inicia sesión</h1>
+            <div class="form-group">
+                <label for="Username">Nombre de usuario:</label>
+                <input type="text" class="form-control" id="Username" placeholder="Nombre de usuario">
+            </div>
+            <div class="form-group">
+                <label for="Password">Contraseña:</label>
+                <input type="text" class="form-control" id="Password" placeholder="Contraseña">
+            </div>
+            <div class="form-group">
+                <label for="Rol">Tipo de venta:</label>
+                <select class="form-control" id="Rol">
+                    <option value="1" selected>Vendedor</option>
+                    <option value="2">Administrador</option>
+                </select>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-primary btn-lg btn-block">Iniciar sesión</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/all.min.js"></script>
+
+</body>
+</html>
