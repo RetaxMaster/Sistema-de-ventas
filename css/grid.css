@@ -6,3 +6,11 @@
     grid-template-areas: "params params params products products products products products products products products products";
 }
 
+#Producto {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto auto;
+    grid-gap: 30px 16px;
+    grid-template-areas: "img img img des des des des des des des des des"
+                         "esp esp esp esp esp esp esp esp esp esp esp esp"
+}

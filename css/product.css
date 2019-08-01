@@ -1,0 +1,64 @@
+/* Asignando espacios en la grid */
+
+#Producto > div:first-child { grid-area: img }
+#Producto > main:nth-child(2) { grid-area: des }
+#Producto > div:last-child { grid-area: esp }
+
+/* ->Asignando espacios en la grid */
+
+.card {
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    margin-bottom: 8px;
+}
+
+/* Main */
+
+main article {
+    display: flex;
+}
+
+main article .description {
+    width: 75%;
+}
+
+main article .Info {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+main article .Info span {
+    font-size: 18px;
+    margin: 5px;
+    font-weight: bold;
+}
+
+/* ->Main */
+
+/* Especificaciones */
+
+#Especificaciones .specifications-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+#Especificaciones .specifications-table article .header {
+    background: #18bc9c;
+    padding: 10px;
+    color: #fff;
+}
+
+#Especificaciones .specifications-table article .value {
+    padding: 20px;
+}
+
+/* ->Especificaciones */
