@@ -37,3 +37,10 @@
     grid-template-rows: auto;
     grid-template-areas: ". . . form form form form form form . . ."
 }
+
+#Caja {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 40px;
+    grid-template-rows: auto auto;
+}
