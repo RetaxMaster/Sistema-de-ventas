@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Modificando los estilos de Bootstrap */
+
+label, p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .08), 0 2px 4px 0 rgba(0, 0, 0, .12);
+    background: #fff;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.navbar {
+    padding: 13px;
+}
+
+.navbar .nav-item {
+    margin: 0 5px;
+}
+
+.form-group {
+    margin-bottom: unset;
+    margin-top: 10px;
+}
+
+.bg-primary .navbar-nav .active>.nav-link,
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    background: #1e2e3e;
+    border-radius: 3px;
+    color: #fff !important;
+}
+
+/* ->Modificando los estilos de Bootstrap */
+
+/* Estilos generales */
+
+body {
+    background: #f8f8f8;
+}
+
+h1 {
+    font-size: 25px;
+    color: #636060;
+}
+
+h2 {
+    font-size: 20px;
+    color: #636060;
+}
+
+h3 {
+    font-size: 19px;
+    color: #636060;
+}
+
+p {
+    margin: 7px 0;
+}
+
+.content {
+    margin: 0 80px;
+    margin-top: 114px;
+    margin-bottom: 50px;
+}
+
+.description {
+    color: #c1c1c1;
+    font-size: 13px;
+}
+
+.price {
+    color: #18bc9c
+}
+
+/* Botones */
+
+.button-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.button-container.align-left {
+    justify-content: flex-start;
+}
+
+.button-container.align-right {
+    justify-content: flex-end;
+}
+
+.button-container .btn.alternative {
+    padding: 8px 25px;
+}
+
+/* ->Botones */
+
+/* Radio buttons personalizados */
+
+.radio-container input[type="radio"] {
+    display: none;
+}
+
+.radio-container label {
+    display: inline-block;
+    position: relative;
+    padding: 5px 10px 5px 30px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
+    -moz-transition: 0.3s all ease;
+    -ms-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+}
+
+.radio-container label:hover {
+    background: rgb(250, 148, 148);
+}
+
+.radio-container label:before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #000;
+    position: absolute;
+    top: 8px;
+    left: 9px;
+    border-radius: 100%;;
+    -webkit-border-radius: 100;
+    -moz-border-radius: 100;
+    -ms-border-radius: 100;
+    -o-border-radius: 100;
+}
+
+.radio-container input[type="radio"]:checked + label {
+    background: rgb(250, 148, 148);
+    padding: 5px 10px;
+}
+
+.radio-container input[type="radio"]:checked + label:before {
+    display: none;
+}
+
+/* ->Radio buttons personalizados */
+
+/* ->Estilos generales */
+
+/* Header */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+/* ->Header */

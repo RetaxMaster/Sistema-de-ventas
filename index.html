@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/ventas.css">
+    <title>Ventas</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Ventas<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Caja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Vendidos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Registrar usuario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-power-off"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content" id="Ventas">
+        <div>
+            <section class="card" id="Search">
+                <h2><i class="fas fa-search"></i> Buscar producto</h2>
+                <form action="#">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="SearchProduct" placeholder="Escribe tu búsqueda">
+                    </div>
+                </form>
+            </section>
+            <section class="card" id="ShoppingCart">
+                <h2><i class="fas fa-shopping-cart"></i> Carrito</h2>
+                <div class="total">
+                    <span>Total:</span>
+                    <span class="price">$20.00 USD</span>
+                </div>
+                <div class="resumen">
+                    <h3>Resumen</h3>
+                    <div class="resumen-container">
+                        <div class="product">
+                            <span>5 productos</span>
+                            <span class="price">$5.00 USD</span>
+                        </div>
+                        <div class="product">
+                            <span>5 productos</span>
+                            <span class="price">$5.00 USD</span>
+                        </div>
+                        <div class="product">
+                            <span>5 productos</span>
+                            <span class="price">$5.00 USD</span>
+                        </div>                      
+                    </div>
+                </div>                              
+                <div class="payment-method">
+                    <h3>Método de pago</h3>
+                    <div class="radio-container">
+                        <input type="radio" name="payment-method" id="Efectivo">
+                        <label for="Efectivo">Efectivo</label>
+                        <input type="radio" name="payment-method" id="Card">
+                        <label for="Card">Tarjetas</label>
+                    </div>                
+                </div>
+                <div class="button-container">
+                    <button class="btn alternative btn-success">Vender</button>
+                </div>
+            </section>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+
+    <script src="js/all.min.js"></script>
+
+</body>
+</html>

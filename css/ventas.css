@@ -1,0 +1,50 @@
+/* Asignando espacios en la grid */
+
+#Ventas > div:first-child { grid-area: params }
+#Ventas > div:last-child { grid-area: products }
+
+
+/* ->Asignando espacios en la grid */
+
+.card {
+    padding: 20px;
+}
+
+#Search, #ShoppingCart {
+    margin-bottom: 16px;
+}
+
+/* Shopping Cart */
+
+#ShoppingCart .total {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+#ShoppingCart .resumen .resumen-container .product {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+#ShoppingCart .resumen .resumen-container {
+    overflow-y: auto;
+    overflow-x: none;
+    max-height: 370px;
+}
+
+#ShoppingCart .resumen .resumen-container .product:last-child {
+    border-bottom: none;
+}
+
+#ShoppingCart .payment-method {
+    margin: 20px 0;
+}
+
+#ShoppingCart .payment-method .radio-container {
+    margin-top: 8px;
+}
+
+/* ->Shopping Cart */
