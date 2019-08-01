@@ -170,7 +170,8 @@ p {
 }
 
 .radio-container label:hover {
-    background: rgb(250, 148, 148);
+    background: #3498db;
+    color: #fff;
 }
 
 .radio-container label:before {
@@ -180,7 +181,7 @@ p {
     height: 15px;
     border: 2px solid #000;
     position: absolute;
-    top: 8px;
+    top: 7px;
     left: 9px;
     border-radius: 100%;;
     -webkit-border-radius: 100;
@@ -190,7 +191,8 @@ p {
 }
 
 .radio-container input[type="radio"]:checked + label {
-    background: rgb(250, 148, 148);
+    background: #3498db;
+    color: #fff;
     padding: 5px 10px;
 }
 
