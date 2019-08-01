@@ -1,0 +1,172 @@
+/* Asignando secciones a la grid */
+
+#Productos h2:first-child { grid-area: title1 }
+#Productos section:nth-child(2) { grid-area: image1 }
+#Productos section:nth-child(3) { grid-area: info }
+#Productos section:nth-child(4) { grid-area: desc }
+#Productos section:nth-child(5) { grid-area: addpro }
+#Productos section:nth-child(6) { grid-area: allpro }
+#Productos section:nth-child(7) { grid-area: addcat }
+#Productos section:nth-child(8) { grid-area: allcat }
+#Productos h2:nth-child(9) { grid-area: title2 }
+#Productos section:last-child { grid-area: produc }
+
+/* ->Asignando secciones a la grid */
+
+.card {
+    padding: 25px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+/* Sección de imagen */
+
+#Image .image-container,
+#Image .add-picture,
+#Image .add-picture label {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#Image .image-container {
+    margin-top: 10px;
+}
+
+#Image .add-picture label {
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc;
+    font-size: 80px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
+    -moz-transition: 0.3s all ease;
+    -ms-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
+}
+
+#Image .add-picture label:hover {
+    background: #f5f5f5;
+}
+
+#Image .add-picture input {
+    display: none;
+}
+
+/* ->Sección de imagen */
+
+/* Descripción */
+
+#DescriptionSection textarea {
+    min-height: 150px;
+}
+
+#DescriptionSection .stock {
+    display: flex;
+    align-items: center;
+}
+
+#DescriptionSection .stock label {
+    margin-right: 10px;
+}
+
+/* ->Descripción */
+
+/* Añadir proveedores y categorías */
+
+.add-register .form-group {
+    margin: 15px 0;
+}
+
+/* ->Añadir proveedores y categorías */
+
+/* Lista de proveedores y categorías */
+
+.register-container h4 {
+    text-align: center;
+}
+
+.register-container .scroll-container {
+    margin-top: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: 257px;
+}
+
+.register-container .scroll-container .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    color: #636060;
+}
+
+.register-container .scroll-container .item:last-child {
+    border-bottom: none;
+}
+
+.register-container .scroll-container .item .icons svg {
+    cursor: pointer;
+}
+
+/* ->Lista de proveedores y categorías */
+
+/* Todos los productos */
+
+#AllProducts {
+    padding: 0;
+}
+
+#AllProducts > div {
+    padding: 20px;
+}
+
+#AllProducts .search {
+    border-bottom: 1px solid #ccc;
+}
+
+#AllProducts .product,
+#AllProducts .product .contenido {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#AllProducts .product {
+    padding: 15px 0;
+}
+
+#AllProducts .product .image-container {
+    width: 100px;
+}
+
+#AllProducts .product .contenido {
+    width: calc(100% - 100px);
+    padding: 0 20px;
+}
+
+#AllProducts .contenido .data {
+    width: calc(100% - 60px);
+}
+
+#AllProducts .contenido .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    color: #636060;
+}
+
+#AllProducts .contenido .actions svg {
+    margin: 0 5px;
+}
+
+/* ->Todos los productos */
