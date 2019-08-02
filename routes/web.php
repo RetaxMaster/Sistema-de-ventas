@@ -11,31 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return "Working";
-});
+Route::get('/', "Store@getSells");
 
-Route::get('/caja', function () {
-    return view("caja");
-});
+Route::get('/caja', "Store@getCashRegister");
 
-Route::get('/product', function () {
-    return view("product");
-});
+Route::get('/product', "Products@getProduct");
 
-Route::get('/products', function () {
-    return view("products");
-});
+Route::get('/products', "Products@getProductDashboard");
 
-Route::get('/user', function () {
-    return view("user");
-});
+Route::get('/login', "Users@getLoginForm");
 
-Route::get('/vendidos', function () {
-    return view("vendidos");
-});
+Route::get('/register', "Users@getRegisterForm");
 
-Route::get('/ventas', function () {
-    return view("ventas");
-});
-
+Route::get('/vendidos', "Store@getSelled");
