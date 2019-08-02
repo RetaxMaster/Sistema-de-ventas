@@ -33,6 +33,7 @@ h2 {
 
 #AllLogs .log .Info {
     padding-right: 20px;
+    width: calc(100% - 80px)
 }
 
 #AllLogs .log .Info .user {
@@ -45,6 +46,8 @@ h2 {
     justify-content: center;
     align-items: center;
     text-align: center;
+    width: 80px;
+    font-weight: bold;
 }
 
 /* ->Historial */

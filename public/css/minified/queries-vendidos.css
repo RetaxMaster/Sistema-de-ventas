@@ -1,0 +1,34 @@
+/* md */
+@media (max-width: 767px) {
+    #AllProducts .product {
+        flex-wrap: wrap;
+    }
+
+    #AllProducts .data {
+        width: calc(100% - 100px);
+    }
+
+    #AllProducts .actions {
+        margin-top: 20px;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+}
+
+/* xs */
+@media (max-width: 450px) {
+    #AllProducts .data,
+    #AllProducts .product .image-container {
+        width: 100%;
+    }
+
+    #AllProducts .data {
+        margin: 15px 0;
+    }
+
+    #AllProducts .product .image-container img {
+        width: auto;
+    }
+}

@@ -2,6 +2,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset(env("css")."products.css") }}">
+<link rel="stylesheet" href="{{ asset(env("css")."queries-products.css") }}">
 @endsection
 
 @section("title", "Productos")
@@ -20,43 +21,43 @@
     </section>
     <section class="card" id="FormSection">
         <form action="#" class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Nombre">Nombre:</label>
                 <input type="text" class="form-control" id="Nombre" placeholder="Nombre del producto">
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Marca">Marca:</label>
                 <input type="text" class="form-control" id="Marca" placeholder="Marca del producto">
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Categoria">Categoría</label>
                 <select class="form-control" id="Categoria">
                     <option value="0" selected>Selecciona una opción:</option>
                 </select>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="PublicPrice">Precio al público:</label>
                 <input type="text" class="form-control" id="PublicPrice" placeholder="Ej. 200.00">
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="MajorPrice">Precio por mayor:</label>
                 <input type="text" class="form-control" id="MajorPrice" placeholder="Ej. 200.00">
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="ProviderPrice">Precio del proveedor:</label>
                 <input type="text" class="form-control" id="ProviderPrice" placeholder="Ej. 200.00">
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Code">Código:</label>
                 <input type="text" class="form-control" id="Code" placeholder="Código del producto">
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Provider">Proveedor:</label>
                 <select class="form-control" id="Provider">
                     <option value="0" selected>Selecciona una opción:</option>
                 </select>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 form-group">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="SellType">Tipo de venta:</label>
                 <select class="form-control" id="SellType">
                     <option value="1" selected>Unidad</option>
@@ -157,11 +158,11 @@
             <input type="text" id="Product" class="form-control" placeholder="Escribe el producto que deseas buscar">
         </div>
         <div class="all-products">
-            <article class="product">
-                <div class="image-container">
-                    <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
-                </div>
-                <div class="contenido">
+            @for ($i = 0; $i < 10; $i++)
+                <article class="product">
+                    <div class="image-container">
+                        <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                    </div>
                     <div class="data">
                         <h4>Nombre del producto</h4>
                         <div class="description">
@@ -172,42 +173,8 @@
                         <i class="fas fa-pencil-alt"></i>
                         <i class="fas fa-times"></i>
                     </div>
-                </div>
-            </article>
-            <article class="product">
-                <div class="image-container">
-                    <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
-                </div>
-                <div class="contenido">
-                    <div class="data">
-                        <h4>Nombre del producto</h4>
-                        <div class="description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum!</p>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-times"></i>
-                    </div>
-                </div>
-            </article>
-            <article class="product">
-                <div class="image-container">
-                    <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
-                </div>
-                <div class="contenido">
-                    <div class="data">
-                        <h4>Nombre del producto</h4>
-                        <div class="description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum!</p>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-times"></i>
-                    </div>
-                </div>
-            </article>
+                </article>
+            @endfor
         </div>
     </section>
 </div>

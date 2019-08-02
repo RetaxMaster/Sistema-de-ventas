@@ -160,24 +160,21 @@ h3 {
     overflow: hidden;
 }
 
-#AllProducts .product .contenido {
-    width: calc(100% - 100px);
+#AllProducts .data {
     padding: 0 20px;
+    width: calc(100% - 160px);
 }
 
-#AllProducts .contenido .data {
-    width: calc(100% - 60px);
-}
-
-#AllProducts .contenido .actions {
+#AllProducts .actions {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     width: 60px;
     color: #636060;
 }
 
-#AllProducts .contenido .actions svg {
+#AllProducts .actions i {
+    cursor: pointer;
     margin: 0 5px;
 }
 

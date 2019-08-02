@@ -1,0 +1,62 @@
+/* lg */
+@media (max-width: 991px) {
+    #Producto {
+        grid-template-areas: "img img img img des des des des des des des des"
+                             "esp esp esp esp esp esp esp esp esp esp esp esp"
+    }
+
+    main article .description {
+        width: 65%;
+    }
+
+    main article .Info {
+        width: 35%;
+    }
+}
+
+/* md */
+@media (max-width: 767px) {
+    #Producto {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: auto auto;
+        grid-gap: 30px 16px;
+        grid-template-areas: "img img img img img des des des des des des des"
+                             "esp esp esp esp esp esp esp esp esp esp esp esp"
+    }
+
+    #Especificaciones .specifications-table{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    main article {
+        flex-wrap: wrap;
+    }
+
+    main article .description {
+        width: 100%;
+    }
+
+    main article .Info {
+        width: 100%;
+    }
+}
+
+/* sm */
+@media (max-width: 575px) {
+    #Producto {
+        grid-template-rows: auto auto auto;
+        grid-template-areas: "img img img img img img img img img img img img"
+                             "des des des des des des des des des des des des"
+                             "esp esp esp esp esp esp esp esp esp esp esp esp"
+    }
+}
+
+/* xs */
+@media (max-width: 450px) {
+    #Especificaciones .specifications-table {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+    }
+}

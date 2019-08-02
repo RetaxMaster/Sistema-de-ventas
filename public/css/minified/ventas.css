@@ -59,8 +59,8 @@
 
 /* Todos los productos */
 
-#AllProducts > div {
-    padding: 20px;
+#AllProducts > section {
+    padding: 10px 0;
 }
 
 #AllProducts .search {
@@ -76,7 +76,7 @@
 
 #AllProducts .product {
     align-items: center;
-    padding: 15px 0;
+    padding: 10px 20px;
 }
 
 #AllProducts .product .image-container {
@@ -94,16 +94,12 @@
     overflow: hidden;
 }
 
-#AllProducts .product .contenido {
-    width: calc(100% - 100px);
+#AllProducts .data {
     padding: 0 20px;
+    width: calc(100% - 300px);
 }
 
-#AllProducts .contenido .data {
-    width: calc(100% - 200px);
-}
-
-#AllProducts .contenido .actions {
+#AllProducts .actions {
     display: flex;
     flex-direction: column;
     justify-content: center;

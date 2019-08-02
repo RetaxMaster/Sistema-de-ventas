@@ -1,0 +1,26 @@
+/* xl */
+@media (max-width: 1999px) {}
+
+/* lg */
+@media (max-width: 991px) {
+    .content {
+        margin: 0 45px;
+        margin-top: 114px;
+        margin-bottom: 50px;
+    }
+}
+
+/* md */
+@media (max-width: 767px) {}
+
+/* sm */
+@media (max-width: 575px) {}
+
+/* xs */
+@media (max-width: 450px) {
+    .content {
+        margin: 0 8px;
+        margin-top: 114px;
+        margin-bottom: 50px;
+    }
+}

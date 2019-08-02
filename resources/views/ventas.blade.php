@@ -2,6 +2,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset(env("css")."ventas.css") }}">
+<link rel="stylesheet" href="{{ asset(env("css")."queries-ventas.css") }}">
 @endsection
 
 @section("title", "Ventas")
@@ -70,11 +71,11 @@
     </div>
     <div id="AllProducts">
         <section class="card">
-            <article class="product">
-                <div class="image-container">
-                    <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
-                </div>
-                <div class="contenido">
+            @for ($i = 0; $i < 10; $i++)
+                <article class="product">
+                    <div class="image-container">
+                        <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                    </div>
                     <div class="data">
                         <h4>Nombre del producto</h4>
                         <div class="description">
@@ -87,8 +88,8 @@
                             <button class="btn btn-success">Agregar al carrito</button>
                         </div>
                     </div>
-                </div>
-            </article>
+                </article>
+            @endfor
         </section>
     </div>
 </div>

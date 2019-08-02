@@ -2,6 +2,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset(env("css")."user.css") }}">
+<link rel="stylesheet" href="{{ asset(env("css")."queries-user.css") }}">
 @endsection
 
 @section("title", "Usuario")

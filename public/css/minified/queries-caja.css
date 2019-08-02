@@ -1,0 +1,19 @@
+/* xs */
+@media (max-width: 450px) {
+    #AllLogs .log {
+        flex-wrap: wrap;
+    }
+
+    #AllLogs .log .Info {
+        width: 100%;
+    }
+
+    #AllLogs .log time {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .balance {
+        font-size: 1.4em;
+    }
+}

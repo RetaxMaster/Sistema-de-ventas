@@ -2,6 +2,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset(env("css")."product.css") }}">
+<link rel="stylesheet" href="{{ asset(env("css")."queries-product.css") }}">
 @endsection
 
 @section("title", "Producto")
@@ -9,7 +10,7 @@
 @section('content')
 <div class="content" id="Producto">
     <div class="image-container card">
-        <img src="http://lorempixel.com/200/200" alt="Imagen del artículo">
+        <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del artículo">
     </div>
     <main class="card">
         <article>

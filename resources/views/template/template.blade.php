@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset(env("css")."all.min.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."style.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."grid.css") }}">
+    <link rel="stylesheet" href="{{ asset(env("css")."queries.css") }}">
     @yield('style', '')
     <title>@yield('title', 'Ventas')</title>
 </head>

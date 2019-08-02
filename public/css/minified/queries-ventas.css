@@ -1,0 +1,29 @@
+/* lg */
+@media (max-width: 991px) {
+    #Ventas {
+        grid-template-areas: "params params params params products products products products products products products products";
+    }
+
+    #AllProducts .product {
+        flex-wrap: wrap;
+    }
+
+    #AllProducts .data {
+        width: calc(100% - 100px);
+    }
+
+    #AllProducts .actions {
+        width: 100%;
+        margin: 15px 0;
+    }
+}
+
+/* md */
+@media (max-width: 767px) {
+    #Ventas {
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "params   params   params   params   params   params   params   params   params   params   params   params"
+        "products products products products products products products products products products products products";
+    }
+}

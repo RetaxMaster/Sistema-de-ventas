@@ -1,0 +1,67 @@
+/* lg */
+@media (max-width: 991px) {
+    #Productos {
+        grid-template-areas: "title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1"
+                             "image1 image1 image1 image1 info   info   info   info   info   info   info   info  "
+                             "desc   desc   desc   desc   desc   desc   desc   desc   desc   desc   desc   desc  "
+                             "addpro addpro addpro addpro addpro addpro addcat addcat addcat addcat addcat addcat"
+                             "allpro allpro allpro allpro allpro allpro allcat allcat allcat allcat allcat allcat"
+                             "title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2"
+                             "produc produc produc produc produc produc produc produc produc produc produc produc"
+    }
+}
+
+/* md */
+@media (max-width: 767px) {
+    #Productos {
+        grid-template-areas: "title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1"
+                             "image1 image1 image1 image1 image1 image1 info   info   info   info   info   info  "
+                             "desc   desc   desc   desc   desc   desc   desc   desc   desc   desc   desc   desc  "
+                             "addpro addpro addpro addpro addpro addpro addcat addcat addcat addcat addcat addcat"
+                             "allpro allpro allpro allpro allpro allpro allcat allcat allcat allcat allcat allcat"
+                             "title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2"
+                             "produc produc produc produc produc produc produc produc produc produc produc produc"
+    }
+}
+
+/* sm */
+@media (max-width: 575px) {
+    #Productos {
+        grid-template-rows: repeat(10, auto);
+        grid-template-areas: "title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1"
+                             "image1 image1 image1 image1 image1 image1 image1 image1 image1 image1 image1 image1"
+                             "info   info   info   info   info   info   info   info   info   info   info   info  "
+                             "desc   desc   desc   desc   desc   desc   desc   desc   desc   desc   desc   desc  "
+                             "addpro addpro addpro addpro addpro addpro addpro addpro addpro addpro addpro addpro"
+                             "allpro allpro allpro allpro allpro allpro allpro allpro allpro allpro allpro allpro"
+                             "addcat addcat addcat addcat addcat addcat addcat addcat addcat addcat addcat addcat"
+                             "allcat allcat allcat allcat allcat allcat allcat allcat allcat allcat allcat allcat"
+                             "title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2"
+                             "produc produc produc produc produc produc produc produc produc produc produc produc"
+    }
+
+    #AllProducts .data {
+        width: calc(100% - 100px);
+    }
+
+    #AllProducts .product {
+        flex-wrap: wrap;
+    }
+
+    #AllProducts .actions {
+        width: 100%;
+        margin-top: 18px;
+    }
+
+}
+
+/* xs */
+@media (max-width: 450px) {
+    #AllProducts .image-container {
+        width: 70px !important;
+    }
+
+    #AllProducts .data {
+        width: calc(100% - 70px);
+    }
+}

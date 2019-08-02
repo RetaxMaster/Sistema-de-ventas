@@ -1,0 +1,21 @@
+/* lg */
+@media (max-width: 991px) {
+    #UserForm {
+        grid-template-areas: ". . form form form form form form form form . ."
+    }
+}
+
+/* md */
+@media (max-width: 767px) {
+    #UserForm {
+        grid-template-areas: "form form form form form form form form form form form form"
+    }
+}
+
+
+/* xs */
+@media (max-width: 450px) {
+    form h1 {
+        font-size: 1.4em;
+    }
+}

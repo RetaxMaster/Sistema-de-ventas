@@ -50,23 +50,19 @@ h1 {
     overflow: hidden;
 }
 
-#AllProducts .product .contenido {
-    width: calc(100% - 100px);
-    padding: 0 20px;
-}
-
-#AllProducts .product .contenido .payed {
+#AllProducts .product .payed {
     font-weight: bold;
 }
 
-#AllProducts .contenido .data {
+#AllProducts .data {
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: calc(100% - 177px);
+    width: calc(100% - 277px);
 }
 
-#AllProducts .contenido .actions {
+#AllProducts .actions {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,6 +72,6 @@ h1 {
     color: #636060;
 }
 
-#AllProducts .contenido .actions .selled-by {
+#AllProducts .actions .selled-by {
     margin-bottom: 10px;
 }
