@@ -11,16 +11,16 @@
 |
 */
 
-Route::get('/', "Store@getSells");
+Route::get('/', "Store@getSells")->name("ventas");
 
-Route::get('/caja', "Store@getCashRegister");
+Route::get('/caja', "Store@getCashRegister")->name("caja");
 
-Route::get('/product', "Products@getProduct");
+Route::get('/product', "Products@getProduct")->name("product");
 
-Route::get('/products', "Products@getProductDashboard");
+Route::get('/products', "Products@getProductDashboard")->name("products");
 
-Route::get('/login', "Users@getLoginForm");
+Route::get('/login', "Users@getLoginForm")->name("login");
 
-Route::get('/register', "Users@getRegisterForm");
+Route::get('/register', "Users@getRegisterForm")->name("register");
 
-Route::get('/vendidos', "Store@getSelled");
+Route::get('/vendidos', "Store@getSelled")->name("vendidos");

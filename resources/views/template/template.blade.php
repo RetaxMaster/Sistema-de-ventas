@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="{{ asset(env("css")."bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ asset(env("css")."all.min.css") }}">
+    <link rel="stylesheet" href="{{ asset(env("css")."style.css") }}">
+    <link rel="stylesheet" href="{{ asset(env("css")."grid.css") }}">
     @yield('style', '')
     <title>@yield('title', 'Ventas')</title>
 </head>
@@ -23,19 +23,19 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Ventas<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ route("ventas") }}">Ventas<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Productos</a>
+                        <a class="nav-link" href="{{ route("products") }}">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Caja</a>
+                        <a class="nav-link" href="{{ route("caja") }}">Caja</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Vendidos</a>
+                        <a class="nav-link" href="{{ route("vendidos") }}">Vendidos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Registrar usuario</a>
+                        <a class="nav-link" href="{{ route("register") }}">Registrar usuario</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
@@ -49,7 +49,7 @@
 
     @yield('content', '')
 
-    <script src="js/all.min.js"></script>
+    <script src="{{ asset(env("js")."all.min.js") }}"></script>
 
 </body>
 </html>

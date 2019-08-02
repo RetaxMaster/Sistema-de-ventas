@@ -1,7 +1,7 @@
 @extends('template/template')
 
 @section('style')
-<link rel="stylesheet" href="css/product.css">
+<link rel="stylesheet" href="{{ asset(env("css")."product.css") }}">
 @endsection
 
 @section("title", "Producto");
