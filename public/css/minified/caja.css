@@ -14,10 +14,20 @@ h2 {
     margin: 30px 0;
 }
 
+.action-button {
+    padding: 10px 0;
+}
+
 /* Historial */
 
 #AllLogs {
     padding: 0;
+}
+
+#AllLogs .no.logs {
+    color: #c1c1c1;
+    padding: 20px;
+    text-align: center;
 }
 
 #AllLogs .log {
