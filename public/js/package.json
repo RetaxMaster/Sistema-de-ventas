@@ -1,0 +1,25 @@
+{
+    "name": "js",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "webpack --watch"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@babel/runtime": "^7.4.5",
+        "sweetalert": "^2.1.2"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.4.4",
+        "@babel/core": "^7.4.5",
+        "@babel/plugin-transform-runtime": "^7.4.4",
+        "@babel/preset-env": "^7.4.5",
+        "babel-loader": "^8.0.6",
+        "webpack": "^4.32.1",
+        "webpack-cli": "^3.3.2"
+    }
+}
