@@ -8,6 +8,11 @@
         margin-top: 114px;
         margin-bottom: 50px;
     }
+
+    .nav-link {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 /* md */

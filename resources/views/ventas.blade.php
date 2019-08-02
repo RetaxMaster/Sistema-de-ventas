@@ -7,6 +7,10 @@
 
 @section("title", "Ventas")
 
+@section('scripts')
+<script src="{{ asset(env("js")."output/ventas.bundle.js") }}"></script>    
+@endsection
+
 @section('content')    
 <div class="content" id="Ventas">
     <div>
@@ -22,23 +26,14 @@
             <h2><i class="fas fa-shopping-cart"></i> Carrito</h2>
             <div class="total">
                 <span>Total:</span>
-                <span class="price">$20.00 USD</span>
+                <span class="price">$<span id="Total">0.00</span> ARS</span>
             </div>
             <div class="resumen">
                 <h3>Resumen</h3>
                 <div class="resumen-container">
-                    <div class="product">
-                        <span>5 productos</span>
-                        <span class="price">$5.00 USD</span>
-                    </div>
-                    <div class="product">
-                        <span>5 productos</span>
-                        <span class="price">$5.00 USD</span>
-                    </div>
-                    <div class="product">
-                        <span>5 productos</span>
-                        <span class="price">$5.00 USD</span>
-                    </div>                      
+                    <div class="no-products">
+                        <span>Aún no has agregado productos al carrito</span>
+                    </div>                   
                 </div>
             </div>                              
             <div class="payment-method">
@@ -61,7 +56,7 @@
                 </div>
                 <div class="vuelto">
                     <span>Vuelto: </span>
-                    <span class="price">$<span id="Vuelto">24.00</span> USD</span>
+                    <span class="price">$<span id="Vuelto">0.00</span> ARS</span>
                 </div>
             </div>
             <div class="button-container">
@@ -72,7 +67,7 @@
     <div id="AllProducts">
         <section class="card">
             @for ($i = 0; $i < 10; $i++)
-                <article class="product">
+                <article class="product" data-id="{{ $i }}" data-name="Nombre del producto" data-price="100.00">
                     <div class="image-container">
                         <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
                     </div>
@@ -83,7 +78,7 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <span class="price">$20.00 USD</span>
+                        <span class="price">$20.00 ARS</span>
                         <div class="button-container">
                             <button class="btn btn-success">Agregar al carrito</button>
                         </div>

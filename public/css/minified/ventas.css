@@ -39,6 +39,11 @@
     max-height: 370px;
 }
 
+#ShoppingCart .resumen .resumen-container .no-products {
+    margin-top: 10px;
+    color: #c1c1c1;
+}
+
 #ShoppingCart .resumen .resumen-container .product:last-child {
     border-bottom: none;
 }

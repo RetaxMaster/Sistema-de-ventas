@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset(env("css")."all.min.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."style.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."grid.css") }}">
+    <link rel="stylesheet" href="{{ asset(env("css")."modal.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."queries.css") }}">
     @yield('style', '')
     <title>@yield('title', 'Ventas')</title>
@@ -55,7 +56,11 @@
 
     @yield('content', '')
 
-    <script src="{{ asset(env("js")."all.min.js") }}"></script>
+    <script src="{{ asset(env("js")."/lib/all.min.js") }}"></script>
+    <script src="{{ asset(env("js")."/lib/bootstrap.min.js") }}"></script>
+    <script src="{{ asset(env("js")."/lib/modifiers.js") }}"></script>
+
+    @yield('scripts', '')
 
 </body>
 </html>
