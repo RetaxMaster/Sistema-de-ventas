@@ -39,11 +39,19 @@ input {
 }
 
 .navbar {
-    padding: 13px;
+    padding: 0 30px;
+}
+
+.navbar .navbar-brand .image-container img {
+    width: auto;
+    max-height: 70px;
 }
 
 .navbar .nav-item {
     margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .bg-primary .navbar-nav .active>.nav-link,
@@ -169,11 +177,6 @@ p {
     -o-transition: 0.3s all ease;
 }
 
-.radio-container label:hover {
-    background: #3498db;
-    color: #fff;
-}
-
 .radio-container label:before {
     content: '';
     display: inline-block;
@@ -188,6 +191,15 @@ p {
     -moz-border-radius: 100;
     -ms-border-radius: 100;
     -o-border-radius: 100;
+}
+
+.radio-container label:hover {
+    background: #3498db;
+    color: #fff;
+}
+
+.radio-container label:hover:before {
+    border-color: #fff;
 }
 
 .radio-container input[type="radio"]:checked + label {

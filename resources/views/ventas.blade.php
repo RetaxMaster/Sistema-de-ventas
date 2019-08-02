@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset(env("css")."ventas.css") }}">
 @endsection
 
-@section("title", "Ventas");
+@section("title", "Ventas")
 
 @section('content')    
 <div class="content" id="Ventas">
@@ -53,6 +53,10 @@
                 <div class="form-group">
                     <label for="Payed">Cantidad pagada:</label>
                     <input type="text" class="form-control" id="Payed" placeholder="¿Cuánto pagó el cliente?">
+                </div>
+                <div class="form-group">
+                    <label for="Disccount">Descuento:</label>
+                    <input type="number" min="1" max="100" class="form-control" id="Disccount" placeholder="Un número del 1 al 100">
                 </div>
                 <div class="vuelto">
                     <span>Vuelto: </span>

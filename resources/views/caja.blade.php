@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset(env("css")."caja.css") }}">
 @endsection
 
-@section("title", "Caja");
+@section("title", "Caja")
 
 @section('content')
 <div class="content" id="Caja">
