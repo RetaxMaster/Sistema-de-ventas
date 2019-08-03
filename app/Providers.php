@@ -11,4 +11,12 @@ class Providers extends Model {
     public static function fillFakeData() {
         factory(static::class, 3)->create();        
     }
+
+    // Relaciones
+    
+    public function products() {
+        return $this->hasMany(Products::class, 'provider');
+    }
+    
+    // -> Relaciones
 }

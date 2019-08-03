@@ -11,4 +11,20 @@ class Products extends Model {
     public static function fillFakeData() {
         factory(static::class, 10)->create();        
     }
+
+    // Relaciones
+    
+    public function categoryinfo() {
+        return $this->belongsTo(Categories::class, 'category');
+    }
+
+    public function providerinfo() {
+        return $this->belongsTo(Providers::class, 'provider');
+    }
+
+    public function solds() {
+        return $this->hasMany(Sold::class, 'product');
+    }
+    
+    // -> Relaciones
 }

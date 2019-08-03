@@ -40,4 +40,16 @@ class User extends Authenticatable
     public static function fillFakeData() {
         factory(static::class, 2)->create();        
     }
+
+    // Relaciones
+    
+    public function logs() {
+        return $this->hasMany(Logs::class, 'user');
+    }
+
+    public function sold() {
+        return $this->hasMany(Sold::class, 'user');
+    }
+    
+    // -> Relaciones
 }

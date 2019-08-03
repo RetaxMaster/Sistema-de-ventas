@@ -12,4 +12,12 @@ class Categories extends Model {
         factory(static::class, 4)->create();        
     }
 
+    // Relaciones
+    
+    public function products() {
+        return $this->hasMany(Products::class, 'category');
+    }
+    
+    // -> Relaciones
+
 }
