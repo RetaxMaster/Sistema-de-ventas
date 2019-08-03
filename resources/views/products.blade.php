@@ -58,8 +58,8 @@
                             <input type="text" class="form-control" id="editMarca" name="Marca" placeholder="Marca del producto">
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
-                            <label for="editCategoria">Categoría</label>
-                            <select class="form-control" id="editCategoria" name="Categoria">
+                            <label for="editCategoriaField">Categoría</label>
+                            <select class="form-control" id="editCategoriaField" name="Categoria">
                                 <option value="0" selected>Selecciona una opción:</option>
                             </select>
                         </div>
@@ -80,8 +80,8 @@
                             <input type="text" class="form-control" id="editCode" name="Code" placeholder="Código del producto">
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
-                            <label for="editProvider">Proveedor:</label>
-                            <select class="form-control" id="editProvider" name="Provider">
+                            <label for="editProviderField">Proveedor:</label>
+                            <select class="form-control" id="editProviderField" name="Provider">
                                 <option value="0" selected>Sin proveedor:</option>
                             </select>
                         </div>

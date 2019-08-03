@@ -39,6 +39,10 @@
     max-height: 370px;
 }
 
+#ShoppingCart .resumen .resumen-container .product {
+    cursor: pointer;
+}
+
 #ShoppingCart .resumen .resumen-container .no-products {
     margin-top: 10px;
     color: #c1c1c1;
@@ -81,7 +85,7 @@
 
 #AllProducts .product {
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 20px;    
 }
 
 #AllProducts .no-products {

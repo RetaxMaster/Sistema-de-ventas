@@ -8,12 +8,20 @@ class Users extends Controller {
     
     // Regresa la lista de productos para vender
     public function getLoginForm() {
-        return view("user");
+
+        $mode = "login";
+
+        $variables = compact("mode");
+        return view("user", $variables);
     }
 
     // Regresa la lista de productos para vender
     public function getRegisterForm() {
-        return view("user");
+
+        $mode = "register";
+
+        $variables = compact("mode");
+        return view("user", $variables);
     }
 
 }

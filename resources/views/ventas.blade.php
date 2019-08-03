@@ -36,32 +36,34 @@
                     </div>                   
                 </div>
             </div>                              
-            <div class="payment-method">
-                <h3>Método de pago</h3>
-                <div class="radio-container">
-                    <input type="radio" name="payment-method" id="Efectivo">
-                    <label for="Efectivo">Efectivo</label>
-                    <input type="radio" name="payment-method" id="Card">
-                    <label for="Card">Tarjetas</label>
-                </div>                
-            </div>
-            <div class="calculator">
-                <div class="form-group">
-                    <label for="Payed">Cantidad pagada:</label>
-                    <input type="text" class="form-control" id="Payed" placeholder="¿Cuánto pagó el cliente?">
+            <form action="#" method="post" id="sellForm">
+                <div class="payment-method">
+                    <h3>Método de pago</h3>
+                    <div class="radio-container">
+                        <input type="radio" name="payment-method" id="Efectivo">
+                        <label for="Efectivo">Efectivo</label>
+                        <input type="radio" name="payment-method" id="Card">
+                        <label for="Card">Tarjetas</label>
+                    </div>                
                 </div>
-                <div class="form-group">
-                    <label for="Disccount">Descuento:</label>
-                    <input type="number" min="1" max="100" class="form-control" id="Disccount" placeholder="Un número del 1 al 100">
+                <div class="calculator">
+                    <div class="form-group">
+                        <label for="Payed">Cantidad pagada:</label>
+                        <input type="text" class="form-control" id="Payed" placeholder="¿Cuánto pagó el cliente?">
+                    </div>
+                    <div class="form-group">
+                        <label for="Disccount">Descuento:</label>
+                        <input type="number" min="1" max="100" class="form-control" id="Disccount" placeholder="Un número del 1 al 100">
+                    </div>
+                    <div class="vuelto">
+                        <span>Vuelto: </span>
+                        <span class="price">$<span id="Vuelto">0.00</span> ARS</span>
+                    </div>
                 </div>
-                <div class="vuelto">
-                    <span>Vuelto: </span>
-                    <span class="price">$<span id="Vuelto">0.00</span> ARS</span>
+                <div class="button-container">
+                    <button class="btn alternative btn-success" id="sell" type="button">Vender</button>
                 </div>
-            </div>
-            <div class="button-container">
-                <button class="btn alternative btn-success">Vender</button>
-            </div>
+            </form>
         </section>
     </div>
     <div id="AllProducts">
