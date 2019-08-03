@@ -18,6 +18,8 @@ $factory->define(Products::class, function (Faker $faker) {
         "sell_type" => rand(1, 3),
         "description" => $faker->paragraph,
         "stock" => rand(2, 50),
+        "weight" => rand(20, 100),
+        "size" => $faker->numerify("##cm x ##cm x ##cm"),
         "image" => "https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85"
     ];
 });

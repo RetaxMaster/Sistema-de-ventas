@@ -1,19 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Products as ProductDatabase;
+use App\Categories;
+use App\Providers;
 
 use Illuminate\Http\Request;
 
 class Products extends Controller {
     
     // Regresa la descripción del producto
-    public function getProduct() {
-        return view("product");
+    public function getProduct(ProductDatabase $product) {
+        $variables = compact("product");
+        return view("product", $variables);
     }
 
     // Regresa el dashboard para agregar productos
     public function getProductDashboard() {
-        return view("products");
+
+        $categories = Categories::all();
+        $providers = Providers::all();
+        $products = ProductDatabase::all();
+
+        $variables = compact("categories", "providers", "products");
+
+        return view("products", $variables);
     }
 
 }

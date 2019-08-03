@@ -60,7 +60,10 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
                             <label for="editCategoriaField">Categoría</label>
                             <select class="form-control" id="editCategoriaField" name="Categoria">
-                                <option value="0" selected>Selecciona una opción:</option>
+                                <option value="0" selected>Selecciona una opción</option>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
@@ -82,7 +85,10 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
                             <label for="editProviderField">Proveedor:</label>
                             <select class="form-control" id="editProviderField" name="Provider">
-                                <option value="0" selected>Sin proveedor:</option>
+                                <option value="0" selected>Sin proveedor</option>
+                                @foreach ($providers as $provider)
+                                <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
@@ -100,7 +106,15 @@
                         <div class="stock form-group col-12">
                             <label for="editStock">Stock:</label>
                             <input type="number" id="editStock" class="form-control" name="Stock">
-                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
+                            <label for="Weight">Peso:</label>
+                            <input type="number" class="form-control product-data" id="Weight" placeholder="Peso">
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
+                            <label for="Size">Tamaño:</label>
+                            <input type="text" class="form-control product-data" id="Size" placeholder="ancho x alto x profundidad">
+                        </div>
                         <div class="button-container padding-up-down">
                             <button type="submit" class="btn btn-primary">Añadir</button>
                         </div>
@@ -135,7 +149,10 @@
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Categoria">Categoría</label>
                 <select class="form-control product-data required" id="Categoria" required>
-                    <option value="0" selected>Selecciona una opción:</option>
+                    <option value="0" selected>Selecciona una opción</option>
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
@@ -157,7 +174,10 @@
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Provider">Proveedor:</label>
                 <select class="form-control product-data" id="Provider">
-                    <option value="0" selected>Sin proveedor:</option>
+                    <option value="0" selected>Sin proveedor</option>
+                    @foreach ($providers as $provider)
+                    <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
@@ -167,6 +187,14 @@
                     <option value="2">Peso</option>
                     <option value="3">Metro</option>
                 </select>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
+                <label for="Weight">Peso:</label>
+                <input type="number" class="form-control product-data" id="Weight" placeholder="Peso">
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
+                <label for="Size">Tamaño:</label>
+                <input type="text" class="form-control product-data" id="Size" placeholder="ancho x alto x profundidad">
             </div>
         </form>
     </section>
@@ -196,9 +224,19 @@
     <section class="card register-container" id="AllProviders">
         <h4>Todos los proveedores</h4>
         <div class="scroll-container">
+            @forelse ($providers as $provider)
+            <div class="item" id="{{ $provider->id }}">
+                <span>{{ $provider->name }}</span>
+                <div class="icons">
+                    <span class="edit"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="delete"><i class="fas fa-times"></i></span>
+                </div>
+            </div>
+            @empty
             <div class="no-items">
                 <span>No hay proveedores</span>
             </div>
+            @endforelse
         </div>
     </section>
     <section class="card add-register" id="AddCategories">
@@ -214,9 +252,19 @@
     <section class="card register-container" id="AllCategories">
         <h4>Todas las categorías</h4>
         <div class="scroll-container">
+            @forelse ($categories as $category)
+            <div class="item" id="{{ $category->id }}">
+                <span>{{ $category->name }}</span>
+                <div class="icons">
+                    <span class="edit"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="delete"><i class="fas fa-times"></i></span>
+                </div>
+            </div>
+            @empty
             <div class="no-items">
                 <span>No hay categorías</span>
             </div>
+            @endforelse
         </div>
     </section>
     <h2>Busca productos</h2>
@@ -225,26 +273,27 @@
             <input type="text" id="Product" class="form-control" placeholder="Escribe el producto que deseas buscar">
         </div>
         <div class="all-products">
-                <article class="no-products">
-                    Aún no hay artículos
-                </article>
-            @for ($i = 0; $i < 0; $i++)
-                <article class="product">
-                    <div class="image-container">
-                        <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+            @forelse ($products as $product)
+            <article class="product" id="{{ $product->id }}">
+                <div class="image-container">
+                    <img src="{{ $product->image }}">
+                </div>
+                <div class="data">
+                    <h4>{{ $product->name }}</h4>
+                    <div class="description">
+                        <p>{{ $product->description }}</p>
                     </div>
-                    <div class="data">
-                        <h4>Nombre del producto</h4>
-                        <div class="description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum!</p>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <span class="edit"><i class="fas fa-pencil-alt"></i></span>
-                        <span class="delete"><i class="fas fa-times"></i></span>
-                    </div>
-                </article>
-            @endfor
+                </div>
+                <div class="actions">
+                    <span class="edit"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="delete"><i class="fas fa-times"></i></span>
+                </div>
+            </article>
+            @empty
+            <article class="no-products">
+                Aún no hay artículos
+            </article>
+            @endforelse
         </div>
     </section>
 </div>

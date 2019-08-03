@@ -19,61 +19,56 @@
             <input type="text" id="Product" class="form-control" placeholder="Escribe el producto que deseas buscar">
         </div>
         <div class="all-products">
-            <article class="no-products">
-                No hay productos vendidos aún
-            </article>
-            @for ($i = 0; $i < 0; $i++)
-                <article class="product">
+            @forelse ($solds as $sold)
+                <article class="product" id="{{ $sold->id }}">
                     <div class="image-container">
-                        <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                        <img src="{{ $sold->productinfo->image }}" alt="Imagen del producto">
                     </div>
                     <div class="data">
-                        <h4>Nombre del producto</h4>
+                        <h4>{{ $sold->productinfo->name }}</h4>
                         <div class="description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum! Lore</p>
+                            <p>{{ $sold->productinfo->description }}</p>
                         </div>
                         <div class="payed">
                             <span>Importe pagado: </span>
-                            <span class="price">$30.00 USD</span>
+                            <span class="price">{{ parse_money($sold->productinfo->public_price * $sold->quantity) }} ARS</span>
                         </div>
                     </div>
                     <div class="actions">
                         <div class="selled-by">
                             <span>Vendido por:</span><br>
-                            <span>Nombre de usuario</span>
+                            <span>{{ $sold->userinfo->username }}</span>
                         </div>
                         <div class="quantity">
                             <span>Cantidad:</span><br>
-                            <span>5</span>
+                            <span>{{ $sold->quantity }}</span>
                         </div>
                     </div>
                 </article>
-            @endfor
+            @empty
+            <article class="no-products">
+                No hay productos vendidos aún
+            </article>
+            @endforelse
         </div>
     </section>
     <nav>
         <ul class="pagination">
+            @if ($prev != null)
             <li class="page-item disabled">
                 <a class="page-link" href="#">&laquo;</a>
             </li>
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
+            @endif
+            @for ($i = $start_for, $j=0; $i <= $totalPages && $j < 5; $i++, $j++)    
+            <li class="page-item {{ ($page == $i) ? "active" : "" }}">
+                <a class="page-link" href="{{ route("vendidos", ["page" => $i]) }}">{{ $i }}</a>
             </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">5</a>
-            </li>
+            @endfor
+            @if ($next != null)
             <li class="page-item">
                 <a class="page-link" href="#">&raquo;</a>
             </li>
+            @endif
         </ul>
     </nav>
 </div>

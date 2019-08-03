@@ -68,28 +68,35 @@
     </div>
     <div id="AllProducts">
         <section class="card">
-            <article class="no-products">
-                No se encontraron productos
-            </article>
-            @for ($i = 0; $i < 0; $i++)
-                <article class="product" data-id="{{ $i }}" data-name="Nombre del producto" data-price="100.00">
+            @forelse ($products as $product)
+                <article class="product" data-id="p{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->public_price }}">
                     <div class="image-container">
-                        <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                        <img src="{{ $product->image }}" alt="Imagen del producto">
                     </div>
                     <div class="data">
-                        <h4>Nombre del producto</h4>
+                        <h4>{{ $product->name }}</h4>
                         <div class="description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro temporibus molestias repellat modi nobis illo! At velit fuga officiis, similique quod nesciunt. Magnam, ab odio minus eaque enim animi. Accusamus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt praesentium consequuntur explicabo, tempora labore quasi et, quam quae quis, animi minus eum fugiat quod corrupti ipsam! Similique eaque suscipit inventore.</p>
+                            <p>{{ $product->description }}</p>
                         </div>
                     </div>
                     <div class="actions">
-                        <span class="price">$20.00 ARS</span>
+                        @if ($product->stock > 0)
+                        <span class="price">{{ parse_money($product->public_price) }} ARS</span>
                         <div class="button-container">
                             <button class="btn btn-success">Agregar al carrito</button>
                         </div>
+                        @else
+                        <div class="out-of-stock">
+                            Agotado
+                        </div>    
+                        @endif
                     </div>
                 </article>
-            @endfor
+            @empty
+            <article class="no-products">
+                No se encontraron productos
+            </article>
+            @endforelse
         </section>
     </div>
 </div>

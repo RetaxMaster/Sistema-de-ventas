@@ -39,7 +39,7 @@
                         <a class="nav-link" href="{{ route("caja") }}">Caja</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route("vendidos") }}">Vendidos</a>
+                        <a class="nav-link" href="{{ route("vendidos", ["page" => 1]) }}">Vendidos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("register") }}">Registrar usuario</a>

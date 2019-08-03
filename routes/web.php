@@ -15,7 +15,7 @@ Route::get('/', "Store@getSells")->name("ventas");
 
 Route::get('/caja', "Store@getCashRegister")->name("caja");
 
-Route::get('/product', "Products@getProduct")->name("product");
+Route::get('/product/{product}', "Products@getProduct")->name("product");
 
 Route::get('/products', "Products@getProductDashboard")->name("products");
 
@@ -23,4 +23,4 @@ Route::get('/login', "Users@getLoginForm")->name("login");
 
 Route::get('/register', "Users@getRegisterForm")->name("register");
 
-Route::get('/vendidos', "Store@getSelled")->name("vendidos");
+Route::get('/vendidos/{page}', "Store@getSelled")->name("vendidos");
