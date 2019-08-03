@@ -84,6 +84,12 @@
     padding: 10px 20px;
 }
 
+#AllProducts .no-products {
+    color: #c1c1c1;
+    padding: 20px;
+    text-align: center;
+}
+
 #AllProducts .product .image-container {
     width: 100px;
     overflow: hidden;

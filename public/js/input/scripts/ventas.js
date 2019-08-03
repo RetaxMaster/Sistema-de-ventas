@@ -81,4 +81,48 @@ document.addEventListener("DOMContentLoaded", () => {
         vuelto();
     }, true);
 
+    // Busca un producto
+
+    const insertProduct = (name, description, image, id) => {
+        const newElement = f.createHTMLNode(`
+            <article class="product" data-id="d0" data-name="Nombre del producto" data-price="20.00">
+                <div class="image-container">
+                    <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                </div>
+                <div class="data">
+                    <h4>${name}</h4>
+                    <div class="description">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum!</p>
+                    </div>
+                </div>
+               <div class="actions">
+                    <span class="price">$20.00 ARS</span>
+                    <div class="button-container">
+                        <button class="btn btn-success">Agregar al carrito</button>
+                    </div>
+                </div>
+            </article>
+        `);
+
+        const allProducts = document.querySelector("#AllProducts .card");
+        const products = FJ(allProducts).children(".product").elements.length;
+
+        if (products > 0) {
+            allProducts.insertBefore(newElement, allProducts.children[0]);
+        }
+        else {
+            f.remove(allProducts.children[0]);
+            allProducts.append(newElement);
+        }
+    }
+    
+    const searchProduct = document.querySelector("#SearchProduct");
+    eventOne("keyup", searchProduct, function () {
+        
+        insertProduct(this.value, null, null, null);        
+
+    }, true);
+    
+    // -> Busca un producto
+
 });

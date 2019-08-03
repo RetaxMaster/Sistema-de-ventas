@@ -7,6 +7,10 @@
 
 @section("title", "Vendidos")
 
+@section('scripts')
+<script src="{{ asset(env("js")."output/vendidos.bundle.js") }}"></script>    
+@endsection
+
 @section('content')
 <div class="content" id="Vendidos">
     <h1>Productos vendidos</h1>
@@ -15,7 +19,10 @@
             <input type="text" id="Product" class="form-control" placeholder="Escribe el producto que deseas buscar">
         </div>
         <div class="all-products">
-            @for ($i = 0; $i < 10; $i++)
+            <article class="no-products">
+                No hay productos vendidos aún
+            </article>
+            @for ($i = 0; $i < 0; $i++)
                 <article class="product">
                     <div class="image-container">
                         <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">

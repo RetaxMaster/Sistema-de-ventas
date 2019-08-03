@@ -66,7 +66,10 @@
     </div>
     <div id="AllProducts">
         <section class="card">
-            @for ($i = 0; $i < 10; $i++)
+            <article class="no-products">
+                No se encontraron productos
+            </article>
+            @for ($i = 0; $i < 0; $i++)
                 <article class="product" data-id="{{ $i }}" data-name="Nombre del producto" data-price="100.00">
                     <div class="image-container">
                         <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
