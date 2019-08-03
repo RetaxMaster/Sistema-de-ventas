@@ -5,7 +5,7 @@ const functions = {
     validateInputs : inputs => {
         let flag = true;
         inputs.forEach(element => {
-            if ((element.tagName == "INPUT" && element.value == "") || (element.tagName == "TEXTAREA" && element.value == "") || (element.tagName == "DIV" && element.textContent == "")) {
+            if ((element.tagName == "INPUT" && element.value == "") || (element.tagName == "TEXTAREA" && element.value == "") || (element.tagName == "DIV" && element.textContent == "") || (element.tagName == "SELECT" && element.value == "0")) {
                 flag = false;
                 element.classList.add("is-invalid");
             } else {

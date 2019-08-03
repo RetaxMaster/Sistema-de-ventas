@@ -83,6 +83,20 @@ document.addEventListener("DOMContentLoaded", () => {
             allProviders.append(newProvider);
         }
 
+        //Los inserto en los select
+
+        const option = f.createHTMLNode(`<option value="1">${providerName}</option>`);
+        const edit = f.createHTMLNode(`<option value="1">${providerName}</option>`);;
+
+        if (container == "AllProviders") {
+            document.querySelector("#Provider").append(option);
+            document.querySelector("#editProviderField").append(edit);
+        }
+        else {
+            document.querySelector("#Categoria").append(option);
+            document.querySelector("#editCategoriaField").append(edit);
+        }
+
     }, true);
     
     // -> Agrega un proveedor o categoría
@@ -223,6 +237,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     // -> Abre el modal para editar un producto
+
+    // Elimina un producto
+
+    eventAll("click", "#AllProducts .all-products", ".product .delete", element => {
+
+        swal({
+            title: "¿Estás seguro?",
+            text: "Esto eliminará todo el stock de este producto",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+
+                //Confirmá eliminación
+
+                const id = element.parentNode.parentNode.id;
+                const parent = element.parentNode.parentNode.parentNode;
+                f.remove(element.parentNode.parentNode);
+
+                if (parent.children.length == 0) {
+                    const noChilds = f.createHTMLNode(`
+                        <article class="no-products">
+                            Aún no hay artículos
+                        </article>
+                    `);
+
+                    parent.append(noChilds);
+                }
+
+                swal("¡Se eliminaron los productos con éxito!", {
+                    icon: "success",
+                });
+            }
+        });
+
+    });
+
+    // -> Elimina un producto
 
     // Añade un producto
     
