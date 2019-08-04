@@ -83,15 +83,18 @@
     <div id="AllProducts">
         <section class="card">
             @forelse ($products as $product)
+                
                 <article class="product" data-id="p{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->public_price }}">
                     <div class="image-container">
-                        <img src="{{ $product->image }}" alt="Imagen del producto">
+                        <img src="{{ asset(env("uploaded_images").$product->image) }}" alt="Imagen del producto">
                     </div>
                     <div class="data">
+                        <a href="{{ route("product", ["product" => $product->id]) }}">
                         <h4>{{ $product->name }}</h4>
-                        <div class="description">
-                            <p>{{ $product->description }}</p>
-                        </div>
+                            <div class="description">
+                                <p>{{ $product->description }}</p>
+                            </div>
+                        </a>
                     </div>
                     <div class="actions">
                         @if ($product->stock > 0)
@@ -106,6 +109,7 @@
                         @endif
                     </div>
                 </article>
+                
             @empty
             <article class="no-products">
                 No se encontraron productos

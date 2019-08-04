@@ -10,7 +10,7 @@
 @section('content')
 <div class="content" id="Producto">
     <div class="image-container card">
-        <img src="{{ $product->image }}" alt="Imagen del artículo">
+        <img src="{{ asset(env("uploaded_images").$product->image) }}" alt="Imagen del artículo">
     </div>
     <main class="card">
         <article>

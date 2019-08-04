@@ -22,7 +22,7 @@
             @forelse ($solds as $sold)
                 <article class="product" id="{{ $sold->id }}">
                     <div class="image-container">
-                        <img src="{{ $sold->productinfo->image }}" alt="Imagen del producto">
+                        <img src="{{ asset(env("uploaded_images").$sold->productinfo->image) }}" alt="Imagen del producto">
                     </div>
                     <div class="data">
                         <h4>{{ $sold->productinfo->name }}</h4>
@@ -52,6 +52,7 @@
             @endforelse
         </div>
     </section>
+    @if ($showPagination)
     <nav>
         <ul class="pagination">
             @if ($prev != null)
@@ -71,5 +72,6 @@
             @endif
         </ul>
     </nav>
+    @endif
 </div>
 @endsection

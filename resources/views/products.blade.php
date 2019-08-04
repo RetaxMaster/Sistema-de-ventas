@@ -42,11 +42,11 @@
                 </div>
                 <div class="modal-card" id="editProduct" data-id="">
                     <h2>Edita el producto:</h2>
-                    <form action="#" class="row" enctype="multipart/form-data">
+                    <form action="#" class="row" method="post" enctype="multipart/form-data">
                         <div class="image-container">
                             <div class="add-picture">
                                 <label for="edit-picture">+</label>
-                                <input type="file" id="edit-picture" name="picture">
+                                <input type="file" id="edit-picture" name="Picture">
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
@@ -94,7 +94,8 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 form-group">
                             <label for="editSellType">Tipo de venta:</label>
                             <select class="form-control" id="editSellType" name="SellType">
-                                <option value="1" selected>Unidad</option>
+                                <option value="0" selected>No cambiar</option>
+                                <option value="1">Unidad</option>
                                 <option value="2">Peso</option>
                                 <option value="3">Metro</option>
                             </select>
@@ -108,12 +109,12 @@
                             <input type="number" id="editStock" class="form-control" name="Stock">
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
-                            <label for="Weight">Peso:</label>
-                            <input type="number" class="form-control product-data" id="Weight" placeholder="Peso">
+                            <label for="editWeight">Peso:</label>
+                            <input type="number" class="form-control" id="editWeight" placeholder="Peso">
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
-                            <label for="Size">Tamaño:</label>
-                            <input type="text" class="form-control product-data" id="Size" placeholder="ancho x alto x profundidad">
+                            <label for="editSize">Tamaño:</label>
+                            <input type="text" class="form-control" id="editSize" placeholder="ancho x alto x profundidad">
                         </div>
                         <div class="button-container padding-up-down">
                             <button type="submit" class="btn btn-primary">Añadir</button>
@@ -132,7 +133,7 @@
         <div class="image-container">
             <div class="add-picture">
                 <label for="new-picture">+</label>
-                <input type="file" id="new-picture" class="product-data required" required>
+                <input type="file" id="new-picture" name="Picture" class="product-data required" required>
             </div>
         </div>
     </section>
@@ -140,15 +141,15 @@
         <form action="#" class="row">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Nombre">Nombre:</label>
-                <input type="text" class="form-control product-data required" id="Nombre" placeholder="Nombre del producto" required>
+                <input type="text" class="form-control product-data required" id="Nombre" name="Nombre" placeholder="Nombre del producto" required>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Marca">Marca:</label>
-                <input type="text" class="form-control product-data" id="Marca" placeholder="Marca del producto">
+                <input type="text" class="form-control product-data" id="Marca" name="Marca" placeholder="Marca del producto">
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Categoria">Categoría</label>
-                <select class="form-control product-data required" id="Categoria" required>
+                <select class="form-control product-data required" id="Categoria" name="Categoria" required>
                     <option value="0" selected>Selecciona una opción</option>
                     @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -157,23 +158,23 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="PublicPrice">Precio al público:</label>
-                <input type="text" class="form-control product-data required" required id="PublicPrice" placeholder="Ej. 200.00">
+                <input type="text" class="form-control product-data required" required id="PublicPrice" name="PublicPrice" placeholder="Ej. 200.00">
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="MajorPrice">Precio por mayor:</label>
-                <input type="text" class="form-control product-data required" required id="MajorPrice" placeholder="Ej. 200.00">
+                <input type="text" class="form-control product-data" id="MajorPrice" name="MajorPrice" placeholder="Ej. 200.00">
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="ProviderPrice">Precio del proveedor:</label>
-                <input type="text" class="form-control product-data required" required id="ProviderPrice" placeholder="Ej. 200.00">
+                <input type="text" class="form-control product-data" id="ProviderPrice" name="ProviderPrice" placeholder="Ej. 200.00">
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Code">Código:</label>
-                <input type="text" class="form-control product-data required" required id="Code" placeholder="Código del producto">
+                <input type="text" class="form-control product-data required" required id="Code" name="Code" placeholder="Código del producto">
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="Provider">Proveedor:</label>
-                <select class="form-control product-data" id="Provider">
+                <select class="form-control product-data" id="Provider" name="Provider">
                     <option value="0" selected>Sin proveedor</option>
                     @foreach ($providers as $provider)
                     <option value="{{ $provider->id }}">{{ $provider->name }}</option>
@@ -182,7 +183,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 form-group">
                 <label for="SellType">Tipo de venta:</label>
-                <select class="form-control product-data" id="SellType">
+                <select class="form-control product-data" id="SellType" name="SellType">
                     <option value="1" selected>Unidad</option>
                     <option value="2">Peso</option>
                     <option value="3">Metro</option>
@@ -190,23 +191,23 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
                 <label for="Weight">Peso:</label>
-                <input type="number" class="form-control product-data" id="Weight" placeholder="Peso">
+                <input type="number" class="form-control product-data" id="Weight" placeholder="Peso" name="Weight">
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-group">
                 <label for="Size">Tamaño:</label>
-                <input type="text" class="form-control product-data" id="Size" placeholder="ancho x alto x profundidad">
+                <input type="text" class="form-control product-data" id="Size" name="Size" placeholder="ancho x alto x profundidad">
             </div>
         </form>
     </section>
     <section class="card" id="DescriptionSection">
         <div class="form-group">
             <label for="Description">Descripción del producto:</label>
-            <textarea class="form-control product-data required" id="Description" placeholder="Describe el producto" required></textarea>
+            <textarea class="form-control product-data required" id="Description" name="Description" placeholder="Describe el producto" required></textarea>
         </div>
         <div class="button-container both-sides padding-up-down">
             <div class="stock">
                 <label for="Stock">Stock:</label>
-                <input type="number" id="Stock" class="form-control product-data required" required>
+                <input type="number" id="Stock" name="Stock" class="form-control product-data required" required>
             </div>
             <button class="btn btn-primary" id="add-product">Añadir</button>
         </div>
@@ -225,7 +226,7 @@
         <h4>Todos los proveedores</h4>
         <div class="scroll-container">
             @forelse ($providers as $provider)
-            <div class="item" id="{{ $provider->id }}">
+            <div class="item" id="p-{{ $provider->id }}">
                 <span>{{ $provider->name }}</span>
                 <div class="icons">
                     <span class="edit"><i class="fas fa-pencil-alt"></i></span>
@@ -253,7 +254,7 @@
         <h4>Todas las categorías</h4>
         <div class="scroll-container">
             @forelse ($categories as $category)
-            <div class="item" id="{{ $category->id }}">
+            <div class="item" id="c-{{ $category->id }}">
                 <span>{{ $category->name }}</span>
                 <div class="icons">
                     <span class="edit"><i class="fas fa-pencil-alt"></i></span>
@@ -274,9 +275,9 @@
         </div>
         <div class="all-products">
             @forelse ($products as $product)
-            <article class="product" id="{{ $product->id }}">
+            <article class="product" id="pr-{{ $product->id }}">
                 <div class="image-container">
-                    <img src="{{ $product->image }}">
+                    <img src="{{ asset(env("uploaded_images").$product->image) }}">
                 </div>
                 <div class="data">
                     <h4>{{ $product->name }}</h4>

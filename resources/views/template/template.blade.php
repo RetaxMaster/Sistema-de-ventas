@@ -59,6 +59,8 @@
 
     <script>
         const ajaxRequests = "/ajax-requests";
+        const uploaded_images = "{{ env("uploaded_images") }}";
+        const product_route = "{{ route("product", ["product" => 1]) }}".slice(0, -1);
     </script>
     <script src="{{ asset(env("js")."/lib/all.min.js") }}"></script>
     <script src="{{ asset(env("js")."/lib/bootstrap.min.js") }}"></script>

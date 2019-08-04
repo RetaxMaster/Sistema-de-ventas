@@ -18,7 +18,7 @@ class CreateLogsTable extends Migration
             $table->text("action");
             $table->bigInteger("user")->unsigned();
             $table->timestamps();
-            $table->foreign("user")->references("id")->on("users");
+            $table->foreign("user")->references("id")->on("users")->onDelete("cascade");
         });
     }
 

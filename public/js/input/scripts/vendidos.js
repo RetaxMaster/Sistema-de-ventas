@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const newElement = f.createHTMLNode(`
                     <article class="product" id="${product.id}">
                         <div class="image-container">
-                            <img src="${product.image}" alt="Imagen del producto">
+                            <img src="${uploaded_images}${product.image}" alt="Imagen del producto">
                         </div>
                         <div class="data">
                             <h4>${product.name}</h4>

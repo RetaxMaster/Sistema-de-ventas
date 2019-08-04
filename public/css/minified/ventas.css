@@ -88,6 +88,10 @@
     padding: 10px 20px;    
 }
 
+#AllProducts .product a {
+    text-decoration: none;
+}
+
 #AllProducts .product .out-of-stock {
     color: #e74c3c;
 }

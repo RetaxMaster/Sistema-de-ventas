@@ -7,6 +7,9 @@ use App\Products;
 use App\Sold;
 use App\Logs;
 use App\Data;
+use App\Providers;
+use App\Categories;
+use App\Classes\RetaxMaster;
 
 class AjaxController extends Controller {
     
@@ -122,6 +125,134 @@ class AjaxController extends Controller {
                 }
                 $response["query"] = $soldProducts;
                 break;
+
+            case 'editProvider':
+                $id = request("id");
+                $id = substr($id, 2);
+                $name = request("name");
+                $provider = Providers::find($id);
+                $provider->name = $name;
+                $provider->save();
+                $response["status"] = "true";
+                break;
+
+            case 'editCategory':
+                $id = request("id");
+                $id = substr($id, 2);
+                $name = request("name");
+                $category = Categories::find($id);
+                $category->name = $name;
+                $category->save();
+                $response["status"] = "true";
+                break;
+
+            case 'AddProviders':
+                $newProvider = Providers::create([
+                    "name" => request("name")
+                ]);
+                $response["status"] = "true";
+                $response["id"] = $newProvider->id;
+                break;
+
+            case 'AddCategories':
+                $newCategory = Categories::create([
+                    "name" => request("name")
+                ]);
+                $response["status"] = "true";
+                $response["id"] = $newCategory->id;
+                break;
+
+            case 'deleteProvider':
+                    $id = request("id");
+                    $id = substr($id, 2);
+                    Providers::destroy($id);
+                    $response["status"] = "true";
+                    break;
+
+            case 'deleteCategory':
+                    $id = request("id");
+                    $id = substr($id, 2);
+                    Categories::destroy($id);
+                    $response["status"] = "true";
+                    break;
+
+            case 'deleteProduct':
+                    $id = request("id");
+                    $id = substr($id, 3);
+                    Products::destroy($id);
+                    $response["status"] = "true";
+                    break;
+
+            case 'addProduct':
+                    if (request()->hasFile("Picture")) {
+                        $image = RetaxMaster::uploadImage(request()->file("Picture"));
+                        if (isset($image["name"])) {
+                            $product = Products::create([
+                                "name" => request("Nombre"),
+                                "brand" => request("Marca"),
+                                "category" => request("Categoria"),
+                                "public_price" => request("PublicPrice"),
+                                "major_price" => request("MajorPrice"),
+                                "provider_price" => request("ProviderPrice"),
+                                "code" => request("Code"),
+                                "provider" => request("Provider"),
+                                "sell_type" => request("SellType"),
+                                "description" => request("Description"),
+                                "stock" => request("Stock"),
+                                "weight" => request("Weight"),
+                                "size" => request("Size"),
+                                "image" => $image["name"]
+                            ]);
+                            $response["status"] = "true";
+                            $response["name"] = $product->name;
+                            $response["description"] = $product->description;
+                            $response["image"] = $product->image;
+                            $response["id"] = $product->id;
+                        }
+                        else {
+                            $response = $image;
+                        }
+                    }
+                    break;
+
+            case 'editProduct':
+                    $id = request("id");
+                    $id = substr($id, 3);
+                    $product = Products::find($id);
+                    if(request("Nombre") != null) {
+                        $product->name = request("Nombre");
+                        $response["name"] = request("Nombre");
+                    }
+                    if(request("Marca") != null) $product->brand = request("Marca");
+                    if(request("Categoria") != null) $product->category = request("Categoria");
+                    if(request("PublicPrice") != null) $product->public_price = request("PublicPrice");
+                    if(request("MajorPrice") != null) $product->major_price = request("MajorPrice");
+                    if(request("ProviderPrice") != null) $product->provider_price = request("ProviderPrice");
+                    if(request("Code") != null) $product->code = request("Code");
+                    if(request("Provider") != null) $product->provider = request("Provider");
+                    if(request("SellType") != null) $product->sell_type = request("SellType");
+                    if(request("Description") != null) {
+                        $product->description = request("Description");
+                        $response["description"] = request("Description");
+                    }
+                    if(request("Stock") != null) $product->stock = request("Stock");
+                    if(request("Weight") != null) $product->weight = request("Weight");
+                    if(request("Size") != null) $product->size = request("Size");
+
+                    if (request()->hasFile("Picture")) {
+                        $image = RetaxMaster::uploadImage(request()->file("Picture"));
+                        if (isset($image["name"])) {
+                            $product->image = $image["name"];
+                            $response["image"] = $image["name"];
+                        }
+                        else {
+                            $response["warning"] = "La imagen no se pudo subir";
+                        }
+                    }
+
+                    $product->save();
+                    $response["status"] = "true";
+                    break;
 
             default:
                 $response["status"] = "false";

@@ -92,26 +92,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }, true);
 
     // Busca un producto
-
-    const insertProduct = (name, description, image, price, id) => {
+    
+    const insertProduct = (name, description, image, price, id, stock) => {
+        const actions = stock > 0 ? `   
+            <span class="price">${f.parseMoney(price)} ARS</span>
+            <div class="button-container">
+                <button class="btn btn-success">Agregar al carrito</button>
+            </div>
+        ` : `
+            <div class="out-of-stock">
+                Agotado
+            </div>  
+        `;
         const newElement = f.createHTMLNode(`
+            
             <article class="product" data-id="${id}" data-name="${name}" data-price="${price}">
                 <div class="image-container">
-                    <img src="${image}" alt="Imagen del producto">
+                    <img src="${uploaded_images}${image}" alt="Imagen del producto">
                 </div>
                 <div class="data">
-                    <h4>${name}</h4>
-                    <div class="description">
-                        <p>${description}</p>
-                    </div>
+                    <a href="${product_route}${id}">
+                        <h4>${name}</h4>
+                        <div class="description">
+                            <p>${description}</p>
+                        </div>
+                    </a>
                 </div>
-               <div class="actions">
-                    <span class="price">${f.parseMoney(price)} ARS</span>
-                    <div class="button-container">
-                        <button class="btn btn-success">Agregar al carrito</button>
-                    </div>
+                <div class="actions">
+                    ${actions}
                 </div>
             </article>
+            
         `);
 
         const allProducts = document.querySelector("#AllProducts .card");
@@ -140,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //Los insertamos
         response.query.forEach(product => {
-            insertProduct(product.name, product.description, product.image, product.id);      
+            insertProduct(product.name, product.description, product.image, product.public_price, product.id, product.stock);      
         });
 
     }, true);

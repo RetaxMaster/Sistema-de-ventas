@@ -22,8 +22,8 @@ class CreateSoldTable extends Migration
             $table->float("payed");
             $table->tinyInteger("payment_method");
             $table->timestamps();
-            $table->foreign("user")->references("id")->on("users");
-            $table->foreign("product")->references("id")->on("products");
+            $table->foreign("user")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("product")->references("id")->on("products")->onDelete("cascade");
         });
     }
 

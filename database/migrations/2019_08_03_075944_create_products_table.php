@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string("brand")->nullable()->default(null);
             $table->bigInteger("category")->unsigned();
             $table->double("public_price");
-            $table->double("major_price");
-            $table->double("provider_price");
+            $table->double("major_price")->nullable()->default(null);
+            $table->double("provider_price")->nullable()->default(null);
             $table->string("code");
             $table->bigInteger("provider")->unsigned()->nullable()->default(null);
             $table->tinyInteger("sell_type");
@@ -29,8 +29,8 @@ class CreateProductsTable extends Migration
             $table->integer("weight")->nullable()->default(null);
             $table->string("size")->nullable()->default(null);
             $table->string("image");
-            $table->foreign("category")->references("id")->on("categories");
-            $table->foreign("provider")->references("id")->on("providers");
+            $table->foreign("category")->references("id")->on("categories")->onDelete("cascade");
+            $table->foreign("provider")->references("id")->on("providers")->onDelete("cascade");
             $table->timestamps();
         });
     }

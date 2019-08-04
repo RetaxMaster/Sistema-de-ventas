@@ -53,49 +53,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Agrega un proveedor
     
-    event("click", "#add-provider, #add-category", function () {
+    event("click", "#add-provider, #add-category", async function () {
         
         const provider = FJ(this).parent().parent().children("input", true).get(0);
         const providerName = provider.value;
-        const container = this.id == "add-provider" ? "AllProviders" : "AllCategories";
-        const allProviders = document.querySelector(`#${container} .scroll-container`);
 
-        provider.value = "";
+        if (providerName != "") {
+            m.loading(true, "Agregando");
+    
+            const data = {
+                mode: this.id == "add-provider" ? "AddProviders" : "AddCategories",
+                name: providerName
+            }
+    
+            const response = await f.ajax(ajaxRequests, "post", data, "post");
+    
+            m.loading(false);
 
-        //Creo el proveedor o categoría
-        const newProvider = f.createHTMLNode(`
-            <div class="item" id="i1">
-                <span>${providerName}</span>
-                <div class="icons">
-                    <span class="edit"><i class="fas fa-pencil-alt"></i></span>
-                    <span class="delete"><i class="fas fa-times"></i></span>
-                </div>
-            </div>
-        `);
-
-        const providersLength = FJ(allProviders).children(".item").elements.length;
-
-        if (providersLength > 0) {
-            allProviders.insertBefore(newProvider, allProviders.children[0]);
+            if (response.status == "true") {
+                const container = this.id == "add-provider" ? "AllProviders" : "AllCategories";
+                const allProviders = document.querySelector(`#${container} .scroll-container`);
+                const id = this.id == "add-provider" ? `p-${response.id}` : `c-${response.id}`;
+        
+                provider.value = "";
+        
+                //Creo el proveedor o categoría
+                const newProvider = f.createHTMLNode(`
+                    <div class="item" id="${id}">
+                        <span>${providerName}</span>
+                        <div class="icons">
+                            <span class="edit"><i class="fas fa-pencil-alt"></i></span>
+                            <span class="delete"><i class="fas fa-times"></i></span>
+                        </div>
+                    </div>
+                `);
+        
+                const providersLength = FJ(allProviders).children(".item").elements.length;
+        
+                if (providersLength > 0) {
+                    allProviders.insertBefore(newProvider, allProviders.children[0]);
+                }
+                else {
+                    f.remove(allProviders.children[0]);
+                    allProviders.append(newProvider);
+                }
+        
+                //Los inserto en los select
+        
+                const option = f.createHTMLNode(`<option value="1">${providerName}</option>`);
+                const edit = f.createHTMLNode(`<option value="1">${providerName}</option>`);;
+        
+                if (container == "AllProviders") {
+                    document.querySelector("#Provider").append(option);
+                    document.querySelector("#editProviderField").append(edit);
+                }
+                else {
+                    document.querySelector("#Categoria").append(option);
+                    document.querySelector("#editCategoriaField").append(edit);
+                }
+            }
+            else {
+                swal("Error", response.message, "error");
+            }
+    
+            
         }
         else {
-            f.remove(allProviders.children[0]);
-            allProviders.append(newProvider);
+            provider.classList.add("is-invalid");
         }
 
-        //Los inserto en los select
-
-        const option = f.createHTMLNode(`<option value="1">${providerName}</option>`);
-        const edit = f.createHTMLNode(`<option value="1">${providerName}</option>`);;
-
-        if (container == "AllProviders") {
-            document.querySelector("#Provider").append(option);
-            document.querySelector("#editProviderField").append(edit);
-        }
-        else {
-            document.querySelector("#Categoria").append(option);
-            document.querySelector("#editCategoriaField").append(edit);
-        }
 
     }, true);
     
@@ -105,14 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const insertProduct = (name, description, image, id) => {
         const newElement = f.createHTMLNode(`
-                    <article class="product" id="p1">
+                    <article class="product" id="${id}">
                         <div class="image-container">
-                            <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                            <img src="${uploaded_images}${image}" alt="Imagen del producto">
                         </div>
                         <div class="data">
                             <h4>${name}</h4>
                             <div class="description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum!</p>
+                                <p>${description}</p>
                             </div>
                         </div>
                         <div class="actions">
@@ -139,9 +165,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // Busca productos
     
     const searchProduct = document.querySelector("#Product");
-    eventOne("keyup", searchProduct, function() {
+    eventOne("keyup", searchProduct, async function() {
         
-        insertProduct(this.value, null, null, null);
+        const data = {
+            mode: "getProductList",
+            query: this.value
+        }
+
+        const response = await f.ajax(ajaxRequests, "post", data, "json");
+        //Eliminamos los elementos que estéhn
+        f.remove("#AllProducts .all-products > .product");
+
+        //Los insertamos
+        response.query.forEach(product => {
+            insertProduct(product.name, product.description, product.image, product.id);
+        });
 
     }, true);
     
@@ -169,10 +207,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (newName.value != "") {
             const id = this.parentNode.parentNode.dataset.id;
-            FJ(`#${id}`).children("span").get(0).textContent = newName.value;
+
             m.closeModal();
-            newName.classList.remove("is-invalid");
-            newName.value = "";
+
+            setTimeout(async () => {
+                
+                m.loading(true, "Editando");
+    
+                const data = {
+                    mode: "editProvider",
+                    id: id,
+                    name: newName.value
+                }
+    
+                const response = await f.ajax(ajaxRequests, "post", data, "json");
+    
+                m.loading(false);
+    
+                if (response.status == "true") {
+                    FJ(`#${id}`).children("span").get(0).textContent = newName.value;
+                    newName.classList.remove("is-invalid");
+                    newName.value = "";
+                }
+                else {
+                    swal("Error", response.message, "error");
+                }
+
+            }, 300);
+
         }
         else {
             newName.classList.add("is-invalid");
@@ -182,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // -> Edita un proveedor
 
-    // Edita un proveedor
+    // Edita una categoría
     
     const editCategory = document.querySelector("#EditCategoryButton");
     eventOne("click", editCategory, function () {
@@ -190,10 +252,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (newName.value != "") {
             const id = this.parentNode.parentNode.dataset.id;
-            FJ(`#${id}`).children("span").get(0).textContent = newName.value;
+
             m.closeModal();
-            newName.classList.remove("is-invalid");
-            newName.value = "";
+
+            setTimeout(async () => {
+                
+                m.loading(true, "Editando");
+    
+                const data = {
+                    mode: "editCategory",
+                    id: id,
+                    name: newName.value
+                }
+    
+                const response = await f.ajax(ajaxRequests, "post", data, "json");
+    
+                m.loading(false);
+    
+                if (response.status == "true") {
+                    FJ(`#${id}`).children("span").get(0).textContent = newName.value;
+                    newName.classList.remove("is-invalid");
+                    newName.value = "";
+                }
+                else {
+                    swal("Error", response.message, "error");
+                }
+
+            }, 300);
+
         }
         else {
             newName.classList.add("is-invalid");
@@ -201,7 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }, true);
     
-    // -> Edita un proveedor
+    // -> Edita una categoría
 
     // Elimina un proveedor o una categoría
 
@@ -209,18 +295,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const isProvider = element.parentNode.parentNode.parentNode.parentNode.id == "AllProviders";
         const text = isProvider ? "proveedores" : "categorías";
-        const parent = element.parentNode.parentNode.parentNode;
-        f.remove(element.parentNode.parentNode);
-        
-        if (parent.children.length == 0) {
-            const noChilds = f.createHTMLNode(`
-                <div class="no-items">
-                    <span>No hay ${text}</span>
-                </div>
-            `);
+        const text2 = isProvider ? "este proveedor" : "esta categoría";
 
-            parent.append(noChilds);
-        }
+        swal({
+            title: "¿Estás seguro?",
+            text: `También se eliminarán todos los productos y registros de ventas asociados a ${text2}`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then(async (willDelete) => {
+            if (willDelete) {
+
+                m.loading(true, "Eliminando");
+
+                const data = {
+                    mode: isProvider ? "deleteProvider" : "deleteCategory",
+                    id: element.parentNode.parentNode.id
+                }
+
+                const response = await f.ajax(ajaxRequests, "post", data, "json");
+
+                m.loading(false);
+
+                if (response.status == "true") {    
+                    const parent = element.parentNode.parentNode.parentNode;
+                    f.remove(element.parentNode.parentNode);
+                    
+                    if (parent.children.length == 0) {
+                        const noChilds = f.createHTMLNode(`
+                            <div class="no-items">
+                                <span>No hay ${text}</span>
+                            </div>
+                        `);
+            
+                        parent.append(noChilds);
+                    }
+                }
+                else {
+                    swal("Error", response.message, "error");
+                }
+            }
+        });
 
     });
 
@@ -244,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         swal({
             title: "¿Estás seguro?",
-            text: "Esto eliminará todo el stock de este producto",
+            text: "Esto eliminará todo el stock y el registro de las ventas asociadas a este producto",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -253,23 +369,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 //Confirmá eliminación
 
+                m.loading(true, "Eliminando");
+
                 const id = element.parentNode.parentNode.id;
-                const parent = element.parentNode.parentNode.parentNode;
-                f.remove(element.parentNode.parentNode);
 
-                if (parent.children.length == 0) {
-                    const noChilds = f.createHTMLNode(`
-                        <article class="no-products">
-                            Aún no hay artículos
-                        </article>
-                    `);
-
-                    parent.append(noChilds);
+                const data = {
+                    mode: "deleteProduct",
+                    id: id
                 }
 
-                swal("¡Se eliminaron los productos con éxito!", {
-                    icon: "success",
-                });
+                const response = f.ajax(ajaxRequests, "post", data, "json");
+
+                m.loading(false);
+
+                if (response.status = "true") {
+                    const parent = element.parentNode.parentNode.parentNode;
+                    f.remove(element.parentNode.parentNode);
+    
+                    if (parent.children.length == 0) {
+                        const noChilds = f.createHTMLNode(`
+                            <article class="no-products">
+                                Aún no hay artículos
+                            </article>
+                        `);
+    
+                        parent.append(noChilds);
+                    }
+                }
+                else{
+                    swal("Error", response.message, "error");
+                }
+
             }
         });
 
@@ -280,30 +410,59 @@ document.addEventListener("DOMContentLoaded", () => {
     // Añade un producto
     
     const addProduct = document.querySelector("#add-product");
-    eventOne("click", addProduct, function() {
+    eventOne("click", addProduct, async function() {
+        
         
         const allFields = document.querySelectorAll(".product-data.required");
         if (f.validateInputs(allFields)) {
+
+            m.loading(true, "Subiendo la información");
             
-            //Lo insertamos a la lista de productos
-            const name = document.querySelector("#Nombre").value;
-            const description = document.querySelector("#Description").value;
-            const image = null;
-            const id = null;
+            //Obtengo y filtro los campos que tienen valor
+            let fields = Array.from(document.querySelectorAll(".product-data"));
+            fields = fields.filter(node => node.value != "" && node.value != "0");
 
-            insertProduct(name, description, image, id);
-
-            swal("Listo", "Producto insertado correctamente", "success");
-
-            //Reseteamos el formulario
-            document.querySelectorAll(".product-data").forEach(input => {
-                input.value = "";
-                input.selectedIndex = "0";
+            //Preparo el formData para enviar los datos
+            const formData = new FormData();
+            formData.append("mode", "addProduct");
+            fields.forEach(input => {
+                if (input.type != "file") {
+                    formData.append(input.name, input.value);
+                }
+                else {
+                    formData.append(input.name, input.files[0]);
+                }
             });
 
-            const preview = document.querySelector("#Image .image-container .image-container");
-            FJ(preview).parent().children(".add-picture").get(0).classList.remove("hidden");
-            f.remove(preview);
+            const response = await f.ajax(ajaxRequests, "post", formData, "json", false, false);
+
+            m.loading(false);
+
+            if (response.status == "true") {
+                //Lo insertamos a la lista de productos
+                const name = response.name;
+                const description = response.description;
+                const image = response.image;
+                const id = "pr-" + response.id;
+    
+                insertProduct(name, description, image, id);
+    
+                swal("Listo", "Producto insertado correctamente", "success");
+    
+                //Reseteamos el formulario
+                document.querySelectorAll(".product-data").forEach(input => {
+                    input.value = "";
+                    input.selectedIndex = "0";
+                });
+    
+                const preview = document.querySelector("#Image .image-container .image-container");
+                FJ(preview).parent().children(".add-picture").get(0).classList.remove("hidden");
+                f.remove(preview);
+            }
+            else {
+                swal("Error", response.message, "error");
+            }
+            
         }
 
     }, true);
@@ -318,28 +477,70 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const id = this.parentNode.dataset.id;
+
+        //Obtengo y filtro los campos que tienen valor
+        let fields = Array.from(this.querySelectorAll("input, textarea, select"));
+        fields = fields.filter(node => node.value != "" && node.value != "0");
+
+        if (fields.length > 0) {
+            //Preparo el formData para enviar los datos
+            const formData = new FormData();
+            formData.append("mode", "editProduct");
+            formData.append("id", id);
+            fields.forEach(input => {
+                if (input.type != "file") {
+                    formData.append(input.name, input.value);
+                } else {
+                    formData.append(input.name, input.files[0]);
+                }
+            });
+
+            m.closeModal();
+            setTimeout(async () => {
+                m.loading(true, "Guardando cambios");
+    
+                const response = await f.ajax(ajaxRequests, "post", formData, "json", false, false);
+
+                m.loading(false);
+    
+                if (response.status == "true") {
+                    //Lo insertamos a la lista de productos
             
-        //Lo insertamos a la lista de productos
-        let name = document.querySelector("#editNombre").value;
-        let description = document.querySelector("#editDescription").value;
-        const image = null;
-        const productId = null;
+                    const product = document.querySelector(`#${id}`);
+                    
+                    if(response.name)
+                        FJ(product).children("h4", true).get(0).textContent = response.name;
+                        
+                    if (response.description)
+                        FJ(product).children(".description", true).get(0).textContent = response.description;
 
-        const product = document.querySelector(`#${id}`);
-        
-        if(name != "")
-            FJ(product).children("h4", true).get(0).textContent = name;
+                    if (response.image)
+                        FJ(product).children("img", true).get(0).src = uploaded_images + response.image;
+                    
+                    if (response.warning) {
+                        swal("Todo bien pero...", response.warning, "warning");                        
+                    }
+                    else {
+                        swal("Listo", "Producto editado correctamente", "success");
+                    }
             
-        if (description != "")
-            FJ(product).children(".description", true).get(0).textContent = description;
-
-        swal("Listo", "Producto editado correctamente", "success");
-
-        //Reseteamos el formulario
-        this.reset();
-        const preview = this.querySelector(".image-container .image-container");
-        FJ(preview).parent().children(".add-picture").get(0).classList.remove("hidden");
-        f.remove(preview);
+                    //Reseteamos el formulario
+                    this.reset();
+                    const preview = this.querySelector(".image-container .image-container");
+                    FJ(preview).parent().children(".add-picture").get(0).classList.remove("hidden");
+                    f.remove(preview);
+                }
+                else {
+                    swal("Error", response.message, "error");
+                    setTimeout(() => {
+                        m.showModal("editProduct");
+                    }, 300);
+                }
+            }, 300);
+        }
+        else {
+            swal("Espera", "No nos has indicado qué debemos editar", "warning");
+        }
 
     }, true);
     

@@ -18,8 +18,8 @@ class Products extends Controller {
     // Regresa el dashboard para agregar productos
     public function getProductDashboard() {
 
-        $categories = Categories::all();
-        $providers = Providers::all();
+        $categories = Categories::orderBy("id", "DESC")->get();
+        $providers = Providers::orderBy("id", "DESC")->get();
         $products = ProductDatabase::all();
 
         $variables = compact("categories", "providers", "products");
