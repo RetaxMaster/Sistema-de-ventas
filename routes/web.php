@@ -11,6 +11,8 @@
 |
 */
 
+//Get routes
+
 Route::get('/', "Store@getSells")->name("ventas");
 
 Route::get('/caja', "Store@getCashRegister")->name("caja");
@@ -24,3 +26,7 @@ Route::get('/login', "Users@getLoginForm")->name("login");
 Route::get('/register', "Users@getRegisterForm")->name("register");
 
 Route::get('/vendidos/{page}', "Store@getSelled")->name("vendidos");
+
+//Post routes
+
+Route::post('/ajax-requests', "AjaxController@get");

@@ -18,6 +18,9 @@ class CreateSoldTable extends Migration
             $table->bigInteger("user")->unsigned();            
             $table->bigInteger("product")->unsigned();
             $table->integer("quantity");
+            $table->integer("disccount");
+            $table->float("payed");
+            $table->tinyInteger("payment_method");
             $table->timestamps();
             $table->foreign("user")->references("id")->on("users");
             $table->foreign("product")->references("id")->on("products");

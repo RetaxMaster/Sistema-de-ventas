@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sold extends Model {
 
-    protected $fillable = ["user", "product", "quantity"];
+    protected $fillable = ["user", "product", "quantity", "disccount", "payed", "payment_method"];
     protected $table = "sold";
 
     public static function fillFakeData() {
@@ -24,4 +24,15 @@ class Sold extends Model {
     }
     
     // -> Relaciones
+
+    public static function newSale(int $id, int $quantity, int $disccount, float $payed, int $payment_method) {
+        parent::create([
+            "user" => 1,
+            "product" => $id,
+            "quantity" => $quantity,
+            "disccount" => $disccount,
+            "payed" => $payed,
+            "payment_method" => $payment_method
+        ]);
+    }
 }

@@ -13,26 +13,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Inserta un nodo de producto
     
-    const insertProduct = (name, description, image, id) => {
+    const insertProduct = (product) => {
         const newElement = f.createHTMLNode(`
-                    <article class="product" id="p1">
+                    <article class="product" id="${product.id}">
                         <div class="image-container">
-                            <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                            <img src="${product.image}" alt="Imagen del producto">
                         </div>
                         <div class="data">
-                            <h4>${name}</h4>
+                            <h4>${product.name}</h4>
                             <div class="description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum!</p>
+                                <p>${product.description}</p>
+                            </div>
+                            <div class="payed">
+                                <span>Importe pagado: </span>
+                                <span class="price">$${product.price} ARS</span>
                             </div>
                         </div>
                         <div class="actions">
                             <div class="selled-by">
                                 <span>Vendido por:</span><br>
-                                <span>Nombre de usuario</span>
+                                <span>${product.username}</span>
                             </div>
                             <div class="quantity">
                                 <span>Cantidad:</span><br>
-                                <span>5</span>
+                                <span>${product.quantity}</span>
                             </div>
                         </div>
                     </article>
@@ -55,9 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
     // Busca productos
 
     const searchProduct = document.querySelector("#Product");
+    let search = true;
     eventOne("keyup", searchProduct, function () {
+        
+        if (search) {
+            search = false;     
+            setTimeout(async () => {
+                const data = {
+                    mode: "searchSold",
+                    query: this.value
+                }
+        
+                const response = await f.ajax(ajaxRequests, "post", data, "json");
+                console.log(response);
+                
+                f.remove("#AllProducts .all-products article");
+        
+                response.query.forEach(product => {
+                    insertProduct(product);
+                });
 
-        insertProduct(this.value, null, null, null);
+                search = true;
+            }, 1500);
+        }
 
     }, true);
 

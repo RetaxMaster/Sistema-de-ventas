@@ -123,7 +123,7 @@ function remove_accent(string $string) : string {
 }
 
 //Convierte un número en formato de moneda -- RetaxMaster
-function parse_money(int $money) : string {
+function parse_money(float $money) : string {
     return "$".number_format((float) $money, 2, '.', ',');
 }
 

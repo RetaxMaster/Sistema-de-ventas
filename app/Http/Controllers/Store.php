@@ -14,10 +14,10 @@ class Store extends Controller {
         $data = Data::first();
         $ammount = $data->cash_register;
         $is_open = $data->is_open;
-        $disabled = $is_open ? "disabled" : "";
-        $open_cash_register = !$is_open ? "hidden" : "";
-        $close_cash_register = $is_open ? "hidden" : "";
-        $logs = Logs::all();
+        $disabled = $is_open ? "" : "disabled";
+        $open_cash_register = $is_open ? "hidden" : "";
+        $close_cash_register = !$is_open ? "hidden" : "";
+        $logs = Logs::take(10)->orderBy("id", "DESC")->get();
 
         $variables = compact("ammount", "is_open", "logs", "disabled", "open_cash_register", "close_cash_register");
 

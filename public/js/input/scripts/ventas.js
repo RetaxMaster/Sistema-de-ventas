@@ -2,6 +2,8 @@ import events from "../functions/events";
 import FJ from "../functions/FamilyJewels";
 import f from "../functions/functions";
 import { generalScripts } from "./scripts";
+import swal from "sweetalert";
+import m from "../functions/modal";
 
 const { eventAll, eventOne } = events;
 
@@ -43,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const productData = element.parentNode.parentNode.parentNode.dataset;
         const id = productData.id;
         const name = productData.name;
-        const price = productData.price;
+        const price = parseFloat(productData.price);
 
         if (cart.hasOwnProperty(id)) {
             //El elemento ya está insertado
@@ -91,20 +93,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Busca un producto
 
-    const insertProduct = (name, description, image, id) => {
+    const insertProduct = (name, description, image, price, id) => {
         const newElement = f.createHTMLNode(`
-            <article class="product" data-id="${id}" data-name="Nombre del producto" data-price="20.00">
+            <article class="product" data-id="${id}" data-name="${name}" data-price="${price}">
                 <div class="image-container">
-                    <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
+                    <img src="${image}" alt="Imagen del producto">
                 </div>
                 <div class="data">
                     <h4>${name}</h4>
                     <div class="description">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione doloremque temporibus saepe, harum corrupti sapiente qui quisquam adipisci sint, cumque quos, aliquam cum? Temporibus quia nulla nobis fugiat? Repudiandae, laborum!</p>
+                        <p>${description}</p>
                     </div>
                 </div>
                <div class="actions">
-                    <span class="price">$20.00 ARS</span>
+                    <span class="price">${f.parseMoney(price)} ARS</span>
                     <div class="button-container">
                         <button class="btn btn-success">Agregar al carrito</button>
                     </div>
@@ -124,12 +126,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     
-    let asd = 1;
     const searchProduct = document.querySelector("#SearchProduct");
-    eventOne("keyup", searchProduct, function () {
-        
-        insertProduct(this.value, null, null, asd);      
-        asd++;  
+    eventOne("keyup", searchProduct, async function () {
+
+        const data = {
+            mode: "getProductList",
+            query: this.value
+        }
+
+        const response = await f.ajax(ajaxRequests, "post", data, "json");
+        //Eliminamos los elementos que estéhn
+        f.remove("#AllProducts .card > .product");
+
+        //Los insertamos
+        response.query.forEach(product => {
+            insertProduct(product.name, product.description, product.image, product.id);      
+        });
 
     }, true);
     
@@ -190,16 +202,50 @@ document.addEventListener("DOMContentLoaded", () => {
     // Vender los productos
     
     const sellButton = document.querySelector("#sell");
-    eventOne("click", sellButton, function() {
+    eventOne("click", sellButton, async function() {
+
+        const paymentMethod = document.querySelector("input[name='payment-method']:checked");
         
-        //Reseteamos el carrito
-        cart = {};
-        total = 0;
-        disccount = 0;
-        updateResumen();
-        insertNoProducts(document.querySelector("#ShoppingCart .resumen .resumen-container"));
-        document.querySelector("#Vuelto").textContent = "0.00";
-        document.querySelector("#sellForm").reset();
+        if (Object.keys(cart).length > 0) {
+            if (paymentMethod != null) {
+                m.loading(true, "Procesando..");
+                //Mandamos los datos
+                cart.total = total;
+                cart.disccount = disccount;
+                cart.payment_method = parseInt(paymentMethod.value);
+                cart.mode = "sell";
+
+                const response = await f.ajax(ajaxRequests, "post", cart, "json");
+
+                m.loading(false);
+
+                console.log(response);
+                
+
+                if (response.status == "true") {
+                    //Reseteamos el carrito
+                    cart = {};
+                    total = 0;
+                    disccount = 0;
+                    updateResumen();
+                    insertNoProducts(document.querySelector("#ShoppingCart .resumen .resumen-container"));
+                    document.querySelector("#Vuelto").textContent = "0.00";
+                    document.querySelector("#sellForm").reset();
+                    swal("¡Venta realizada!", "La venta ha sido realziada con éxito", "success")
+                }
+                else {
+                    swal("Error", response.message, "error");
+                }
+
+            }
+            else {
+                swal("Un momento", "Elige un método de pago", "warning");                
+            }
+        }
+        else {
+            swal("Error", "No hay artículos en el carrito", "error");
+        }
+        
 
     }, true)
     

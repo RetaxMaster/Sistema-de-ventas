@@ -118,12 +118,15 @@ const functions = {
     
     //Quita un elemento del DOM - RetaxMaster
     remove : selector => {
-        if ((typeof selector == "string")) selector = document.querySelectorAll(selector);
-        selector = (selector.children != undefined) ? [selector] : Array.from(selector);
-        
-        selector.forEach(element => {
-            element.parentNode.removeChild(element);
-        });
+        if (selector) {
+            if ((typeof selector == "string")) selector = document.querySelectorAll(selector);
+            
+            selector = (selector.children != undefined) ? [selector] : Array.from(selector);
+            
+            selector.forEach(element => {
+                element.parentNode.removeChild(element);
+            });
+        }
     },
     
     //Obtiene una cadena aleatoria - RetaxMaster

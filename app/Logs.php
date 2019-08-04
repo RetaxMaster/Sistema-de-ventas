@@ -20,4 +20,11 @@ class Logs extends Model {
     public static function fillFakeData() {
         factory(static::class, 5)->create();        
     }
+
+    public static function createLog($log) {
+        parent::create([
+            "action" => $log,
+            "user" => 1
+        ]);
+    }
 }

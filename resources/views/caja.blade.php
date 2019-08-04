@@ -8,10 +8,27 @@
 @section("title", "Caja")
 
 @section('scripts')
+<script>
+let total = {{ $ammount }};
+</script>
 <script src="{{ asset(env("js")."output/caja.bundle.js") }}"></script>    
 @endsection
 
 @section('content')
+<div class="modal" id="modal">
+    <div class="modal-main">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-1 close-modal"></div>
+            <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 close-modal">
+                <div class="modal-card" id="loading">
+                    <div class="preloader"></div>
+                    <span class="tag">Cargando...</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-1 close-modal"></div>
+        </div>
+    </div>
+</div>
 <div class="content" id="Caja">
     <section>
         <h2><i class="fas fa-cash-register"></i> Caja</h2>

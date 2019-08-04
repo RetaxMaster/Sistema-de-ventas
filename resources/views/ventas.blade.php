@@ -12,6 +12,20 @@
 @endsection
 
 @section('content')    
+<div class="modal" id="modal">
+    <div class="modal-main">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-1 close-modal"></div>
+            <div class="col-lg-6 col-md-6 col-sm-10 col-xs-12 close-modal">
+                <div class="modal-card" id="loading">
+                    <div class="preloader"></div>
+                    <span class="tag">Cargando...</span>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-1 close-modal"></div>
+        </div>
+    </div>
+</div>
 <div class="content" id="Ventas">
     <div>
         <section class="card" id="Search">
@@ -40,9 +54,9 @@
                 <div class="payment-method">
                     <h3>Método de pago</h3>
                     <div class="radio-container">
-                        <input type="radio" name="payment-method" id="Efectivo">
+                        <input type="radio" name="payment-method" id="Efectivo" value="1">
                         <label for="Efectivo">Efectivo</label>
-                        <input type="radio" name="payment-method" id="Card">
+                        <input type="radio" name="payment-method" id="Card" value="2">
                         <label for="Card">Tarjetas</label>
                     </div>                
                 </div>
