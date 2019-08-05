@@ -64,6 +64,10 @@
     padding: 10px 0;
 }
 
+#ShoppingCart textarea {
+    min-height: 58px;
+}
+
 /* ->Shopping Cart */
 
 /* Todos los productos */

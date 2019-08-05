@@ -25,7 +25,7 @@ Route::get('/login', "Users@getLoginForm")->name("login");
 
 Route::get('/register', "Users@getRegisterForm")->name("register");
 
-Route::get('/vendidos/{page}', "Store@getSelled")->name("vendidos");
+Route::get('/vendidos/{page}', "Store@getSolds")->name("vendidos");
 
 //Post routes
 

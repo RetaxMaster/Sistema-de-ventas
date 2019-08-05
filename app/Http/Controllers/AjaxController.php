@@ -9,6 +9,7 @@ use App\Logs;
 use App\Data;
 use App\Providers;
 use App\Categories;
+use App\Sales;
 use App\Classes\RetaxMaster;
 
 class AjaxController extends Controller {
@@ -28,11 +29,29 @@ class AjaxController extends Controller {
                     $disccount = $cart["disccount"];
                     $total = $cart["total"];
                     $payment_method = $cart["payment_method"];
+                    $comment = $cart["comment"];
                     unset($cart["disccount"]);
                     unset($cart["total"]);
                     unset($cart["mode"]);
+                    unset($cart["comment"]);
                     unset($cart["payment_method"]);
 
+                    //Primero generamos el ticket
+                    //TODO: Generar ticket
+
+                    //Luego creamos la venta
+                    $sale = Sales::create([
+                        "user" => 1,
+                        "disccount" => $disccount,
+                        "payment_method" => $payment_method,
+                        "total" => $total,
+                        "comment" => $comment != "" ? $comment : null,
+                        "ticket_url" => "asd"
+                    ]);
+
+                    $saleId = $sale->id;
+
+                    //Después insertamos cada producto por individual
                     foreach ($cart as $key => $product) {
                         $id = (int) substr($key, 1);
                         $quantity = $product["quantity"];
@@ -40,7 +59,7 @@ class AjaxController extends Controller {
                         $name = $product["name"];
 
                         //Lo insertamos en la tabla de ventas
-                        Sold::newSale($id, $quantity, $disccount, $price, $payment_method);
+                        Sold::newSale($id, $quantity, $price, $saleId);
 
                         //Lo insertamos en los logs
                         Logs::createLog("Vendió $quantity $name por $$price ARS");

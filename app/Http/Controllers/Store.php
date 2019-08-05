@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Data;
 use App\Logs;
-use App\Sold;
+use App\Sales;
 use App\Products;
 
 class Store extends Controller {
@@ -32,19 +32,19 @@ class Store extends Controller {
     }
 
     // Regresa la lista de productos vendidos
-    public function getSelled($page) {
+    public function getSolds($page) {
         
         // Obtengo los articulos paginados
         
         $resultsPerPage = 10;
-        $allProducts = Sold::count();
+        $allProducts = Sales::count();
 
         if ($allProducts > 0) {
             $showPagination = true;
             $totalPages = ceil($allProducts / $resultsPerPage);
             if($page > $totalPages) return abort(404);
             $start = $page * $resultsPerPage - $resultsPerPage;
-            $solds = Sold::skip($start)->take($resultsPerPage)->orderBy("id", "DESC")->get();
+            $sales = Sales::skip($start)->take($resultsPerPage)->orderBy("id", "DESC")->get();
     
             // Next y prev
             
@@ -75,7 +75,7 @@ class Store extends Controller {
         
         // -> Obtengo los articulos paginados
 
-        $variables = compact("solds", "totalPages", "page", "start_for", "next", "prev", "link_next", "link_prev", "showPagination");
+        $variables = compact("sales", "totalPages", "page", "start_for", "next", "prev", "link_next", "link_prev", "showPagination");
         return view("vendidos", $variables);
     }
 

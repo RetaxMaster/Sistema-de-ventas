@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sold extends Model {
 
-    protected $fillable = ["user", "product", "quantity", "disccount", "payed", "payment_method"];
+    protected $fillable = ["product", "quantity", "payed", "sale"];
     protected $table = "sold";
 
     public static function fillFakeData() {
@@ -19,20 +19,18 @@ class Sold extends Model {
         return $this->belongsTo(Products::class, 'product');
     }
 
-    public function userinfo() {
-        return $this->belongsTo(User::class, 'user');
+    public function saleinfo() {
+        return $this->belongsTo(User::class, 'sale');
     }
     
     // -> Relaciones
 
-    public static function newSale(int $id, int $quantity, int $disccount, float $payed, int $payment_method) {
+    public static function newSale(int $id, int $quantity, float $payed, int $sale) {
         parent::create([
-            "user" => 1,
             "product" => $id,
             "quantity" => $quantity,
-            "disccount" => $disccount,
             "payed" => $payed,
-            "payment_method" => $payment_method
+            "sale" => $sale
         ]);
     }
 }

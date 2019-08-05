@@ -74,6 +74,12 @@
                         <span class="price">$<span id="Vuelto">0.00</span> ARS</span>
                     </div>
                 </div>
+                <div class="comment">
+                    <div class="form-group">
+                        <label for="SellComment">Comentarios:</label>
+                        <textarea class="form-control" id="SellComment" placeholder="Escribe un comentario acerca de esta venta"></textarea>
+                    </div>
+                </div>
                 <div class="button-container">
                     <button class="btn alternative btn-success" id="sell" type="button">Vender</button>
                 </div>

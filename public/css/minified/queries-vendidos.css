@@ -1,14 +1,14 @@
 /* md */
-@media (max-width: 767px) {
-    #AllProducts .product {
+@media (max-width: 991px) {
+    #sold-products .product {
         flex-wrap: wrap;
     }
 
-    #AllProducts .data {
+    #sold-products .data {
         width: calc(100% - 100px);
     }
 
-    #AllProducts .actions {
+    #sold-products .actions {
         margin-top: 20px;
         width: 100%;
         flex-direction: row;
@@ -19,16 +19,24 @@
 
 /* xs */
 @media (max-width: 450px) {
-    #AllProducts .data,
-    #AllProducts .product .image-container {
+    #sold-products .data,
+    #sold-products .product .image-container {
         width: 100%;
     }
 
-    #AllProducts .data {
+    #sold-products .data {
         margin: 15px 0;
     }
 
-    #AllProducts .product .image-container img {
+    #sold-products .product .image-container img {
         width: auto;
+    }
+
+    #AllProducts .sale {
+        flex-wrap: wrap;
+    }
+
+    #AllProducts .sale .sect {
+        width: 100%;
     }
 }

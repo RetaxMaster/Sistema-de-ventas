@@ -7,6 +7,77 @@ h1 {
     justify-content: center;
 }
 
+/* Productos individuales */
+
+#sold-products > article {
+    padding: 20px;
+
+}
+
+#sold-products .all-products {
+    padding: 0;
+}
+
+#sold-products .product,
+#sold-products .product .contenido {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#sold-products .product {
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+#sold-products .product:last-child {
+    border-bottom: none;
+}
+
+#sold-products .product .image-container {
+    width: 100px;
+    overflow: hidden;
+    max-height: 135px;
+}
+
+#sold-products .product .image-container img {
+    max-height: 100%;
+}
+
+#sold-products .product .description {
+    max-height: 60px;
+    overflow: hidden;
+}
+
+#sold-products .product .payed {
+    font-weight: bold;
+}
+
+#sold-products .data {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 277px);
+}
+
+#sold-products .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 177px;
+    color: #636060;
+}
+
+#sold-products .actions .selled-by {
+    margin-bottom: 10px;
+}
+
+/* ->Productos individuales */
+
 #AllProducts>div {
     padding: 20px;
 }
@@ -19,66 +90,32 @@ h1 {
     border-bottom: 1px solid #ccc;
 }
 
-#AllProducts .product,
-#AllProducts .product .contenido {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-#AllProducts .product {
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #ccc;    
-}
-
 #AllProducts .no-products {
     color: #c1c1c1;
     padding: 20px;
     text-align: center;
 }
 
-#AllProducts .product:last-child {
-    border-bottom: none;
-}
-
-#AllProducts .product .image-container {
-    width: 100px;
-    overflow: hidden;
-    max-height: 135px;
-}
-
-#AllProducts .product .image-container img {
-    max-height: 100%;
-}
-
-#AllProducts .product .description {
-    max-height: 60px;
-    overflow: hidden;
-}
-
-#AllProducts .product .payed {
-    font-weight: bold;
-}
-
-#AllProducts .data {
-    padding: 0 20px;
+#AllProducts .sale {
     display: flex;
-    flex-direction: column;
+    padding: 20px;
     justify-content: space-between;
-    width: calc(100% - 277px);
-}
-
-#AllProducts .actions {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
-    width: 177px;
-    color: #636060;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: 0.3s all ease;
+    -webkit-transition: 0.3s all ease;
+    -moz-transition: 0.3s all ease;
+    -ms-transition: 0.3s all ease;
+    -o-transition: 0.3s all ease;
 }
 
-#AllProducts .actions .selled-by {
-    margin-bottom: 10px;
+#AllProducts .sale:hover {
+    background: #f5f5f5;
+}
+
+#AllProducts .sale h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }

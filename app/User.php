@@ -47,8 +47,8 @@ class User extends Authenticatable
         return $this->hasMany(Logs::class, 'user');
     }
 
-    public function sold() {
-        return $this->hasMany(Sold::class, 'user');
+    public function sales() {
+        return $this->hasMany(Sales::class, 'sale');
     }
     
     // -> Relaciones
