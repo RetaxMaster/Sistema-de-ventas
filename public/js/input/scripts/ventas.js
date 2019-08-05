@@ -225,13 +225,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 cart.disccount = disccount;
                 cart.payment_method = parseInt(paymentMethod.value);
                 cart.mode = "sell";
+                cart.comment = document.querySelector("#SellComment").value;
 
                 const response = await f.ajax(ajaxRequests, "post", cart, "json");
 
                 m.loading(false);
-
-                console.log(response);
-                
 
                 if (response.status == "true") {
                     //Reseteamos el carrito
