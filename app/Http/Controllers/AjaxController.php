@@ -12,6 +12,7 @@ use App\Categories;
 use App\Sales;
 use App\Classes\RetaxMaster;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AjaxController extends Controller {
     
@@ -167,6 +168,7 @@ class AjaxController extends Controller {
                 $id = substr($id, 2);
                 $name = request("name");
                 $provider = Providers::find($id);
+                Logs::createLog("Editó el nombre del proveedor de $provider->name a $name");
                 $provider->name = $name;
                 $provider->save();
                 $response["status"] = "true";
@@ -177,23 +179,28 @@ class AjaxController extends Controller {
                 $id = substr($id, 2);
                 $name = request("name");
                 $category = Categories::find($id);
+                Logs::createLog("Editó el nombre de la categoría de $category->name a $name");
                 $category->name = $name;
                 $category->save();
                 $response["status"] = "true";
                 break;
 
             case 'AddProviders':
+                $name = request("name");
                 $newProvider = Providers::create([
-                    "name" => request("name")
+                    "name" => $name
                 ]);
+                Logs::createLog('Agregó el proveedor "'.$name.'"');
                 $response["status"] = "true";
                 $response["id"] = $newProvider->id;
                 break;
 
             case 'AddCategories':
+                $name = request("name");
                 $newCategory = Categories::create([
-                    "name" => request("name")
+                    "name" => $name
                 ]);
+                Logs::createLog('Agregó la categoría "'.$name.'"');
                 $response["status"] = "true";
                 $response["id"] = $newCategory->id;
                 break;
@@ -201,21 +208,30 @@ class AjaxController extends Controller {
             case 'deleteProvider':
                     $id = request("id");
                     $id = substr($id, 2);
-                    Providers::destroy($id);
+                    $provider = Providers::find($id);
+                    $name = $provider->name;
+                    $provider->delete();
+                    Logs::createLog('Eliminó el proveedor "'.$name.'" junto con todos los productos asociados a el.');
                     $response["status"] = "true";
                     break;
 
             case 'deleteCategory':
                     $id = request("id");
                     $id = substr($id, 2);
-                    Categories::destroy($id);
+                    $category = Categories::find($id);
+                    $name = $category->name;
+                    $category->delete();
+                    Logs::createLog('Eliminó la categoría "'.$name.'" junto con todos los productos asociados a ella.');
                     $response["status"] = "true";
                     break;
 
             case 'deleteProduct':
                     $id = request("id");
                     $id = substr($id, 3);
-                    Products::destroy($id);
+                    $product = Products::find($id);
+                    $name = $product->name;
+                    $product->delete();
+                    Logs::createLog('Eliminó el producto "'.$name.'"');
                     $response["status"] = "true";
                     break;
 
@@ -244,6 +260,8 @@ class AjaxController extends Controller {
                             $response["description"] = $product->description;
                             $response["image"] = $product->image;
                             $response["id"] = $product->id;
+
+                            Logs::createLog('Creó el producto "'.$product->name.'"');
                         }
                         else {
                             $response = $image;
@@ -278,6 +296,8 @@ class AjaxController extends Controller {
                     if (request()->hasFile("Picture")) {
                         $image = RetaxMaster::uploadImage(request()->file("Picture"));
                         if (isset($image["name"])) {
+                            //Primero busco la imagen actual para quitarla
+                            File::delete(public_path()."/media/images/uploaded_images/".$product->image);
                             $product->image = $image["name"];
                             $response["image"] = $image["name"];
                         }
@@ -286,8 +306,26 @@ class AjaxController extends Controller {
                         }
                     }
 
+                    Logs::createLog('Editó el producto "'.$product->name.'"');
+
                     $product->save();
                     $response["status"] = "true";
+                    break;
+
+            case 'getMoreLogs':
+                    $logsChargeds = request("logsChargeds");
+                    $logs = Logs::skip($logsChargeds)->take(10)->orderBy("id", "DESC")->get();
+                    $allLogs = Logs::count();
+                    $send = [];
+                    foreach($logs as $log) {
+                        $item["action"] = $log->action;
+                        $item["created_at"] = $log->created_at;
+                        $item["id"] = $log->id;
+                        $item["username"] = $log->userinfo->username;
+                        array_push($send, $item);
+                    }
+                    $response["log"] = $send;
+                    $response["allLogs"] = $allLogs;
                     break;
 
             default:

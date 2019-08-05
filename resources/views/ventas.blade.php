@@ -90,7 +90,7 @@
         <section class="card">
             @forelse ($products as $product)
                 
-                <article class="product" data-id="p{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->public_price }}">
+                <article class="product" data-id="p{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->public_price }}" data-stock="{{ $product->stock }}">
                     <div class="image-container">
                         <img src="{{ asset(env("uploaded_images").$product->image) }}" alt="Imagen del producto">
                     </div>

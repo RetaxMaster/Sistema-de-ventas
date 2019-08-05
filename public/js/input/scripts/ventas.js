@@ -45,11 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const productData = element.parentNode.parentNode.parentNode.dataset;
         const id = productData.id;
         const name = productData.name;
+        const stock = productData.stock;
         const price = parseFloat(productData.price);
 
         if (cart.hasOwnProperty(id)) {
             //El elemento ya está insertado
             cart[id].quantity++;
+
+            //Si la cantidad es igual al stock, entonces ya no puede poner más productos
+            if (cart[id].quantity == cart[id].stock) {
+                const actions = element.parentNode.parentNode;
+                const soldOut = f.createHTMLNode(`
+                    <div class="out-of-stock">
+                        Agotado
+                    </div>   
+                `);
+                f.remove(FJ(element).parent().parent().children(".price").get(0));
+                f.remove(FJ(element).parent().parent().children(".button-container").get(0));
+                actions.append(soldOut);
+            }
 
             const subtotal = price * cart[id].quantity;
 
@@ -61,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cart[id].name = name;
             cart[id].price = price;
             cart[id].quantity = 1;
+            cart[id].stock = stock;
         }
         
         total += parseFloat(price);
@@ -146,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const response = await f.ajax(ajaxRequests, "post", data, "json");
-        //Eliminamos los elementos que estéhn
+        //Eliminamos los elementos que estén
         f.remove("#AllProducts .card > .product");
 
         //Los insertamos
@@ -173,6 +188,19 @@ document.addEventListener("DOMContentLoaded", () => {
             parent.append(noProducts);
         }
     }
+
+    const insertAddToCartButton = (id, price) => {
+        const addToCartButton = f.createHTMLNode(`
+            <span class="price">${f.parseMoney(price)} ARS</span>
+            <div class="button-container">
+                <button class="btn btn-success">Agregar al carrito</button>
+            </div>
+        `);
+
+        const actions = document.querySelector(`#AllProducts .card article[data-id="${id}"] .actions`);
+        f.remove(actions.children);
+        actions.append(addToCartButton);
+    }
     
     //Quita uno
     eventAll("click", "#ShoppingCart .resumen .resumen-container", ".product", product => {
@@ -186,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (cart[id].quantity == 0) delete cart[id];
 
+        insertAddToCartButton(id, price);
         updateResumen();
         insertNoProducts(parent);
 
@@ -198,11 +227,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const id = product.dataset.id;
         const parent = product.parentNode;
         const price = cart[id].price;
+        const unitPrice = cart[id].price / cart[id].quantity;
 
         total -= price;
 
         delete cart[id];
 
+        insertAddToCartButton(id, unitPrice);
         updateResumen();
         insertNoProducts(parent);
 

@@ -20,7 +20,7 @@ class Products extends Controller {
 
         $categories = Categories::orderBy("id", "DESC")->get();
         $providers = Providers::orderBy("id", "DESC")->get();
-        $products = ProductDatabase::all();
+        $products = ProductDatabase::orderBy("id", "DESC")->get();
 
         $variables = compact("categories", "providers", "products");
 

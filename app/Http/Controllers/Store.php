@@ -18,8 +18,9 @@ class Store extends Controller {
         $open_cash_register = $is_open ? "hidden" : "";
         $close_cash_register = !$is_open ? "hidden" : "";
         $logs = Logs::take(10)->orderBy("id", "DESC")->get();
+        $allLogs = Logs::count();
 
-        $variables = compact("ammount", "is_open", "logs", "disabled", "open_cash_register", "close_cash_register");
+        $variables = compact("ammount", "is_open", "logs", "disabled", "open_cash_register", "close_cash_register", "allLogs");
 
         return view("caja", $variables);
     }

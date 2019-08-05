@@ -19,7 +19,7 @@
                 <p>{{ $product->description }}</p>
             </div>
             <div class="Info">
-                <span class="price">${{ $product->public_price }} ARS</span>
+                <span class="price">{{ parse_money($product->public_price) }} ARS</span>
                 <span class="stock">{{ $product->stock }} <br> disponibles</span>
             </div>
         </article>
@@ -42,7 +42,11 @@
                         <span>Marca</span>
                     </div>
                     <div class="value">
+                        @if ($product->brand != null)
                         <span>{{ $product->brand }}</span>
+                        @else
+                        <span>No especificado</span>
+                        @endif
                     </div>
                 </article>
                 <article>
@@ -50,7 +54,11 @@
                         <span>Peso</span>
                     </div>
                     <div class="value">
+                        @if ($product->weight != null)
                         <span>{{ $product->weight }} Kg</span>
+                        @else
+                        <span>No especificado</span>
+                        @endif
                     </div>
                 </article>
                 <article>
@@ -58,7 +66,11 @@
                         <span>Medidas</span>
                     </div>
                     <div class="value">
+                        @if ($product->size != null)
                         <span>{{ $product->size }}</span>
+                        @else
+                        <span>No especificado</span>
+                        @endif
                     </div>
                 </article>
             </div>
@@ -76,7 +88,11 @@
                         <span>Precio al por mayor</span>
                     </div>
                     <div class="value">
+                        @if ($product->major_price != null)
                         <span>{{ $product->major_price }}</span>
+                        @else
+                        <span>No especificado</span>
+                        @endif
                     </div>
                 </article>
                 <article>
@@ -84,7 +100,11 @@
                         <span>Precio del proveedor</span>
                     </div>
                     <div class="value">
+                        @if ($product->provider_price != null)
                         <span>{{ $product->provider_price }} Kg</span>
+                        @else
+                        <span>No especificado</span>
+                        @endif
                     </div>
                 </article>
                 <article>

@@ -67,7 +67,7 @@ let total = {{ $ammount }};
                     <span class="user">{{ $log->userinfo->username }}:</span>
                     <p>{{ $log->action }}</p>
                 </div>
-                <time datetime="">
+                <time datetime="{{ $log->created_at }}">
                     {{ get_short_date_from_timestamp($log->created_at) }} <br> {{ get_time_from_timestamp($log->created_at) }}
                 </time>
             </article>
@@ -77,6 +77,11 @@ let total = {{ $ammount }};
             </article>
             @endforelse
         </div>
+        @if ($allLogs > 10)
+            <div class="see-more">
+                <span>Ver más</span>    
+            </div>
+        @endif
     </section>
 </div>
 @endsection

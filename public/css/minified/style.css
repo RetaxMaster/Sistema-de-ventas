@@ -129,6 +129,13 @@ p {
     display: none !important;
 }
 
+.see-more {
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    color: #3498db;
+}
+
 /* Botones */
 
 .button-container {

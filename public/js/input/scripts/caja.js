@@ -189,4 +189,48 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // -> Retira dinero
 
+    // Carga los logs
+    let logsChargeds = 10;
+    
+    const seeMore = document.querySelector(".see-more");
+    eventOne("click", seeMore, async function() {
+        
+        const data = {
+            mode: "getMoreLogs",
+            logsChargeds: logsChargeds
+        }
+
+        m.loading(true, "Buscando");
+
+        const response = await f.ajax(ajaxRequests, "post", data, "json");
+        console.log(response);
+        
+
+        response.log.forEach(log => {
+            
+            const logElement = f.createHTMLNode(`
+                <article class="log" id="${log.id}">
+                    <div class="Info">
+                        <span class="user">${log.username}:</span>
+                        <p>${log.action}</p>
+                    </div>
+                    <time datetime="${log.created_at}">
+                        ${f.getShortDateFromTimestamp(log.created_at)} <br> ${f.getTimeFromTimestamp(log.created_at)}
+                    </time>
+                </article>
+            `);
+
+            document.querySelector("#AllLogs").append(logElement);
+            logsChargeds += 10;
+
+            if (logsChargeds >= response.allLogs) f.remove(".see-more");
+
+        });
+
+        m.loading(false);
+
+    }, true)
+    
+    // -> Carga los logs
+
 });

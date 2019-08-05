@@ -162,14 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // -> Inserta un nodo de producto
 
-    // Busca productos
-    
-    const searchProduct = document.querySelector("#Product");
-    eventOne("keyup", searchProduct, async function() {
-        
+    const getProductList = async query => {
         const data = {
             mode: "getProductList",
-            query: this.value
+            query: query
         }
 
         const response = await f.ajax(ajaxRequests, "post", data, "json");
@@ -180,6 +176,14 @@ document.addEventListener("DOMContentLoaded", () => {
         response.query.forEach(product => {
             insertProduct(product.name, product.description, product.image, product.id);
         });
+    }
+
+    // Busca productos
+    
+    const searchProduct = document.querySelector("#Product");
+    eventOne("keyup", searchProduct, function() {
+        
+        getProductList(this.value);
 
     }, true);
     
@@ -321,6 +325,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (response.status == "true") {    
                     const parent = element.parentNode.parentNode.parentNode;
                     f.remove(element.parentNode.parentNode);
+
+                    getProductList("");
                     
                     if (parent.children.length == 0) {
                         const noChilds = f.createHTMLNode(`
