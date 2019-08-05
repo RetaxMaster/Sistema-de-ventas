@@ -67,11 +67,13 @@
     <h1>Productos vendidos</h1>
     <section class="card" id="AllProducts">
         <div class="search">
-            <div class="form-group c-12 c-md-6">        
-                <input type="text" id="StartDate" class="form-control">
-            </div>
-            <div class="form-group c-12 c-md-6">                            
-                <input type="text" id="EndDate" class="form-control">
+            <div class="row">
+                <div class="col-12 col-md-6">        
+                    <input type="text" id="StartDate" class="form-control" placeholder="Fecha de inicio">
+                </div>
+                <div class="col-12 col-md-6">                            
+                    <input type="text" id="EndDate" class="form-control" placeholder="Fecha de fin" disabled>
+                </div>
             </div>
         </div>
         <div class="all-products">
@@ -79,7 +81,7 @@
                 <article class="sale" id="s{{ $sale->id }}">
                     <div class="sect">
                         <h3>{{ $sale->userinfo->username }} vendió:</h3>
-                        <span>5 productos</span>
+                        <span>{{ count($sale->solds) }} productos</span>
                     </div>
                     <div class="sect">
                         <h3>Fecha:</h3>
@@ -92,7 +94,7 @@
                 </article>
             @empty
             <article class="no-products">
-                No hay productos vendidos aún
+                No hay ventas aún
             </article>
             @endforelse
         </div>

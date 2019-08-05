@@ -126,4 +126,10 @@ function get_full_date_from_javascript_timestamp(string $timestamp) : string{
     return get_full_date($timestamp);
 }
 
+//Convierte una fecha de tipo dd/mm/aaaa a timestamp
+function convert_normal_date_to_timestamp(string $date): string {
+    $date = explode("/", $date);
+    return $date[2]."-".$date[1]."-".$date[0];
+}
+
 ?>

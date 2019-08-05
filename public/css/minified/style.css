@@ -64,6 +64,14 @@ input {
 
 /* ->Modificando los estilos de Bootstrap */
 
+/* Modificando los estilos de Flat Pickr */
+
+.flatpickr-calendar.open {
+    z-index: 5;
+}
+
+/* ->Modificando los estilos de Flat Pickr */
+
 /* Estilos generales */
 
 body {

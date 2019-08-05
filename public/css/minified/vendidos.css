@@ -14,8 +14,14 @@ h1 {
 
 }
 
+#sold-products .button-container {
+    margin-top: 20px;
+}
+
 #sold-products .all-products {
     padding: 0;
+    max-height: 500px;
+    overflow: auto;
 }
 
 #sold-products .product,

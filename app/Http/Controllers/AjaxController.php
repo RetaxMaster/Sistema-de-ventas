@@ -11,6 +11,7 @@ use App\Providers;
 use App\Categories;
 use App\Sales;
 use App\Classes\RetaxMaster;
+use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller {
     
@@ -123,26 +124,42 @@ class AjaxController extends Controller {
                 break;
 
             case "searchSold":
-                $query = str_replace(" ", "|", request("query"));
-                $products = Products::take(12)->where("name", "regexp", $query)->get();
+                $id = request("id");
+                $id = substr($id, 1);
+                $response["id"] = $id;
+                $products = Sales::find($id);
+                $username = $products->userinfo->username;
+                $response["description"] = $products->comment;
+                $products = $products->solds;
                 $soldProducts = [];
 
                 foreach ($products as $product) {
-                    if (count($product->solds) > 0) {
-                        foreach ($product->solds as $sold) {
-                            $item = [];
-                            $item["id"] = $product->id;
-                            $item["image"] = $product->image;
-                            $item["name"] = $product->name;
-                            $item["description"] = $product->description;
-                            $item["price"] = $sold->payed;
-                            $item["username"] = $sold->userinfo->username;
-                            $item["quantity"] = $sold->quantity;
-                            array_push($soldProducts, $item);
-                        }
-                    }
+                    $item = [];
+                    $item["id"] = $product->productinfo->id;
+                    $item["image"] = $product->productinfo->image;
+                    $item["name"] = $product->productinfo->name;
+                    $item["description"] = $product->productinfo->description;
+                    $item["price"] = $product->payed;
+                    $item["username"] = $username;
+                    $item["quantity"] = $product->quantity;
+                    array_push($soldProducts, $item);
                 }
-                $response["query"] = $soldProducts;
+                $response["products"] = $soldProducts;
+                break;
+
+            case 'searchSales':
+                $start = convert_normal_date_to_timestamp(request("start"));
+                $end = convert_normal_date_to_timestamp(request("end"));
+                $sales = Sales::whereBetween("created_at", [$start, $end])->get();
+                $data = [];
+                foreach ($sales as $key => $sale) {
+                    $data[$key]["id"] = $sale->id;
+                    $data[$key]["username"] = $sale->userinfo->username;
+                    $data[$key]["quantity"] = count($sale->solds);
+                    $data[$key]["timestamp"] = $sale->created_at;
+                    $data[$key]["total"] = $sale->total;
+                }
+                $response["query"] = $data;
                 break;
 
             case 'editProvider':
