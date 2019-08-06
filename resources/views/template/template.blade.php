@@ -8,7 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset(env("css")."bootstrap.min.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."flatpickr.css") }}">
-    <link rel="stylesheet" href="{{ asset(env("css")."all.min.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."style.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."grid.css") }}">
     <link rel="stylesheet" href="{{ asset(env("css")."modal.css") }}">
@@ -58,6 +57,7 @@
 
     @yield('content', '')
 
+    @routes
     <script>
         const ajaxRequests = "/ajax-requests";
         const uploaded_images = "{{ env("uploaded_images") }}";

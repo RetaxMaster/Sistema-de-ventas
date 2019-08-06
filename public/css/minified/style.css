@@ -136,6 +136,11 @@ p {
     color: #3498db;
 }
 
+.tag {
+    font-weight: bold;
+    font-size: 13px;
+}
+
 /* Botones */
 
 .button-container {

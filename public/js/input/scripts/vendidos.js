@@ -10,7 +10,6 @@ const { eventAll, eventOne, event } = events;
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    
     generalScripts();
 
     
@@ -32,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    //Inserta un nod de venta
+    //Inserta un nodo de venta
 
     const insertSale = (sale) => {
         const newElement = f.createHTMLNode(`
@@ -121,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         m.loading(false);
 
         document.querySelector("#sold-products .description").textContent = response.description;
+        document.querySelector("#edit").href = route("sale", id.slice(1)).url();
         
         f.remove("#sold-products .all-products article");
         

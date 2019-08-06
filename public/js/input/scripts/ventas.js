@@ -47,24 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const name = productData.name;
         const stock = productData.stock;
         const price = parseFloat(productData.price);
+        const parent = element.parentNode.parentNode.parentNode;
 
+        //Añade la leyenda de está agotado
+        const isSouldOut = element => {
+            const actions = element.parentNode.parentNode;
+            const soldOut = f.createHTMLNode(`
+                                <div class="out-of-stock">
+                                    Agotado
+                                </div>   
+                            `);
+            f.remove(FJ(element).parent().parent().children(".price").get(0));
+            f.remove(FJ(element).parent().parent().children(".button-container").get(0));
+            actions.append(soldOut);
+        }
+        
         if (cart.hasOwnProperty(id)) {
             //El elemento ya está insertado
             cart[id].quantity++;
 
             //Si la cantidad es igual al stock, entonces ya no puede poner más productos
-            if (cart[id].quantity == cart[id].stock) {
-                const actions = element.parentNode.parentNode;
-                const soldOut = f.createHTMLNode(`
-                    <div class="out-of-stock">
-                        Agotado
-                    </div>   
-                `);
-                f.remove(FJ(element).parent().parent().children(".price").get(0));
-                f.remove(FJ(element).parent().parent().children(".button-container").get(0));
-                actions.append(soldOut);
-            }
-
+            if (cart[id].quantity == cart[id].stock) isSouldOut(element);
+            
             const subtotal = price * cart[id].quantity;
 
             cart[id].price = parseFloat(subtotal);
@@ -76,8 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
             cart[id].price = price;
             cart[id].quantity = 1;
             cart[id].stock = stock;
+            if (stock == 1) isSouldOut(element);
         }
-        
+
+        parent.dataset.stock = cart[id].stock - cart[id].quantity;
         total += parseFloat(price);
 
         updateResumen();
@@ -176,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Quita un producto de la lista de productos
 
     const insertNoProducts = parent => {
-        console.log(parent);
         
         if (parent.children.length == 0) {
             const noProducts = f.createHTMLNode(`
@@ -211,8 +216,10 @@ document.addEventListener("DOMContentLoaded", () => {
         cart[id].quantity--;
         cart[id].price -= parseFloat(price);
         total -= price;
-
+        
         if (cart[id].quantity == 0) delete cart[id];
+        const productStock = document.querySelector(`#AllProducts .card article[data-id=${id}]`);
+        productStock.dataset.stock = parseInt(productStock.dataset.stock) + 1;
 
         insertAddToCartButton(id, price);
         updateResumen();
@@ -231,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         total -= price;
 
+        document.querySelector(`#AllProducts .card article[data-id=${id}]`).dataset.stock = cart[id].stock;
         delete cart[id];
 
         insertAddToCartButton(id, unitPrice);

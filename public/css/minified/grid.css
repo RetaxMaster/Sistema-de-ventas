@@ -51,3 +51,14 @@
     grid-gap: 15px;
     grid-template-rows: auto auto auto;
 }
+
+#Sales {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto auto auto auto;
+    grid-gap: 20px 40px;
+    grid-template-areas: "titl titl titl titl titl titl titl titl titl titl titl titl"
+                         "info info info info info info sold sold sold sold sold sold"
+                         "new  new  new  new  new  new  new  new  new  new  new  new "
+                         "btn  btn  btn  btn  btn  btn  btn  btn  btn  btn  btn  btn ";
+}

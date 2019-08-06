@@ -10,7 +10,7 @@ class Sold extends Model {
     protected $table = "sold";
 
     public static function fillFakeData() {
-        factory(static::class, 50)->create();        
+        factory(static::class, 100)->create();        
     }
 
     // Relaciones

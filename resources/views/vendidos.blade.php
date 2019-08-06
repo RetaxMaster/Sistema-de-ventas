@@ -26,35 +26,9 @@
                     <p class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus nemo recusandae velit nam similique aperiam nisi sequi odit, rerum illo ipsam officiis molestias vel? In animi quis possimus est maiores.</p>
                     <h2>Productos</h2>
                     <div class="all-products">
-                        @for ($i = 0; $i < 10; $i++)
-                        <article class="product" id="{{ $i }}">
-                            <div class="image-container">
-                                <img src="https://lh3.googleusercontent.com/bFbUtXL3sEjlxfrWhTaDEN-CuBONeM5x2YpJ2DCQ64rY-vrEOckeW6v7mJ-XLXFLw7wZDV8=s85" alt="Imagen del producto">
-                            </div>
-                            <div class="data">
-                                <h4>Titulo</h4>
-                                <div class="description">
-                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum quibusdam culpa voluptatum omnis, praesentium eveniet? Illo, blanditiis iste esse perspiciatis voluptatum odit minus error, mollitia asperiores explicabo suscipit eius repellendus.</p>
-                                </div>
-                                <div class="payed">
-                                    <span>Importe pagado: </span>
-                                    <span class="price">$20.00 ARS</span>
-                                </div>
-                            </div>
-                            <div class="actions">
-                                <div class="selled-by">
-                                    <span>Vendido por:</span><br>
-                                    <span>Alguien</span>
-                                </div>
-                                <div class="quantity">
-                                    <span>Cantidad:</span><br>
-                                    <span>5</span>
-                                </div>
-                            </div>
-                        </article>
-                        @endfor
                     </div>
                     <div class="button-container">
+                        <a href="#" id="edit"><button class="btn btn-primary">Editar</button></a>
                         <button class="btn btn-success">Descargar ticket</button>
                     </div>
                 </div>

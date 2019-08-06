@@ -9,7 +9,7 @@ class Sales extends Model {
     protected $fillable = ["user", "disccount", "payment_method", "total", "comment", "ticket_url"];
 
     public static function fillFakeData() {
-        factory(static::class, 3)->create();        
+        factory(static::class, 2)->create();        
     }
 
     // Relaciones

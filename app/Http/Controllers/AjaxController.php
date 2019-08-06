@@ -60,6 +60,11 @@ class AjaxController extends Controller {
                         $price = $product["price"];
                         $name = $product["name"];
 
+                        //Descontamos el stock
+                        $product = Products::find($id);
+                        $product->stock -= $quantity;
+                        $product->save();
+
                         //Lo insertamos en la tabla de ventas
                         Sold::newSale($id, $quantity, $price, $saleId);
 
@@ -136,7 +141,7 @@ class AjaxController extends Controller {
 
                 foreach ($products as $product) {
                     $item = [];
-                    $item["id"] = $product->productinfo->id;
+                    $item["id"] = $product->id;
                     $item["image"] = $product->productinfo->image;
                     $item["name"] = $product->productinfo->name;
                     $item["description"] = $product->productinfo->description;

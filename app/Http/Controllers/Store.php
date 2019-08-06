@@ -32,6 +32,13 @@ class Store extends Controller {
         return view("ventas", $variables);
     }
 
+    //Regresa el detalle de los porductos vendidos
+    public function getSales(Sales $sale) {
+        $products = Products::take(10)->orderBy("id", "DESC")->get();
+        $variables = compact("sale", "products");
+        return view("sales", $variables);
+    }
+
     // Regresa la lista de productos vendidos
     public function getSolds($page) {
         

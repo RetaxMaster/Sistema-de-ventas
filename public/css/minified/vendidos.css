@@ -18,6 +18,10 @@ h1 {
     margin-top: 20px;
 }
 
+#sold-products .button-container button {
+    margin: 0 5px;
+}
+
 #sold-products .all-products {
     padding: 0;
     max-height: 500px;

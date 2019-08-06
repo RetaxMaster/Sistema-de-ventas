@@ -1,0 +1,25 @@
+/* md */
+@media (max-width: 991px) {
+    #Sales {
+        grid-template-rows: auto auto auto auto auto;
+        grid-gap: 20px 0;
+        grid-template-areas: "titl titl titl titl titl titl titl titl titl titl titl titl"
+                             "info info info info info info info info info info info info"
+                             "sold sold sold sold sold sold sold sold sold sold sold sold"
+                             "new  new  new  new  new  new  new  new  new  new  new  new "
+                             "btn  btn  btn  btn  btn  btn  btn  btn  btn  btn  btn  btn ";
+    }
+
+    #AllProducts .product {
+        flex-wrap: wrap;
+    }
+
+    #AllProducts .data {
+        width: calc(100% - 100px);
+    }
+
+    #AllProducts .actions {
+        width: 100%;
+        margin: 15px 0;
+    }
+}
