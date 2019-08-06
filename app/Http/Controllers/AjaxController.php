@@ -22,7 +22,7 @@ class AjaxController extends Controller {
         switch ($mode) {
             case 'getProductList':
                 $query = str_replace(" ", "|", request("query"));
-                $response["query"] = Products::take(12)->where("name", "regexp", $query)->get();
+                $response["query"] = Products::take(12)->where("name", "regexp", $query)->orWhere("brand", "regexp", $query)->orWhere("code", "regexp", $query)->get();
                 break;
 
             case "sell":
@@ -331,6 +331,86 @@ class AjaxController extends Controller {
                     }
                     $response["log"] = $send;
                     $response["allLogs"] = $allLogs;
+                    break;
+
+            case 'deleteSold':
+                    //Obtengo datos
+                    $id = request("id");
+                    $idSale = request("idSale");
+
+                    //Busco en la base de datos
+                    $sale = Sales::find($idSale);
+                    $sold = Sold::find($id);
+
+                    //Actualizo datos
+                    $sale->total -= $sold->payed;
+                    $sale->save();
+                    $sale->fresh();
+                    Data::updatePrice($sold->payed, "withdrawal");
+
+                    //Creo el log
+                    $date = get_short_date_from_timestamp($sale->created_at)." ".get_time_from_timestamp($sale->created_at);
+                    $name = $sold->productinfo->name;
+                    Logs::createLog('Eliminó "'.$name.'" de la venta del '.$date);
+
+                    //Elimino el registro
+                    $sold->delete();
+
+                    //Respondo
+                    $response["status"] = "true";
+                    $response["newTotal"] = $sale->total;
+                    break;
+
+            case 'addProductSold':
+                    //Obtenemos datos
+                    $quantity = request("quantity");
+                    $id = substr(request("productId"), 1);
+                    $saleId = request("saleId");
+
+                    //Buscamos en la base de datos
+                    $product = Products::find($id);
+                    $sale = Sales::find($saleId);
+                    
+                    //Insertamos en la tabla de vendidos
+                    $price = $product->public_price * $quantity;
+                    $sale->total += $price;
+                    $sold = Sold::newSale($product->id, $quantity, $price, $saleId);
+                    $sale->save();
+                    $sale->fresh();
+                    Data::updatePrice($price, "add");
+
+                    //Descontamos del stock
+                    $product->stock -= $quantity;
+                    $product->save();
+
+                    //Creamos el log
+                    $date = get_short_date_from_timestamp($sale->created_at)." ".get_time_from_timestamp($sale->created_at);
+                    Logs::createLog('Añadió el producto "'.$product->name.'" a la venta del '.$date);
+
+                    //Respondemos
+                    $response["status"] = "true";
+                    $response["id"] = $sold->id;
+                    $response["image"] = $product->image;
+                    $response["name"] = $product->name;
+                    $response["description"] = $product->description;
+                    $response["payed"] = $price;
+                    $response["newTotal"] = $sale->total;
+                    $response["quantity"] = $quantity;
+                    break;
+
+            case 'deleteSale':
+                    $id = request("id");
+                    $sale = Sales::find($id);
+
+                    Data::updatePrice($sale->total, "withdrawal");
+                    $date = get_short_date_from_timestamp($sale->created_at)." ".get_time_from_timestamp($sale->created_at);
+
+                    //Creo el log
+                    Logs::createLog("Eliminó la venta del $date, se extrajeron $$sale->total ARS de la caja.");
+
+                    $sale->delete();
+
+                    $response["status"] = "true";
                     break;
 
             default:

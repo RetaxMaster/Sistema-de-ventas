@@ -44,6 +44,10 @@
     overflow-x: hidden;
 }
 
+.products.wrapped {
+    cursor: pointer;
+}
+
 .products>article {
     padding: 20px;
 

@@ -26,7 +26,7 @@ class Sold extends Model {
     // -> Relaciones
 
     public static function newSale(int $id, int $quantity, float $payed, int $sale) {
-        parent::create([
+        return parent::create([
             "product" => $id,
             "quantity" => $quantity,
             "payed" => $payed,

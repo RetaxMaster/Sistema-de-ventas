@@ -203,7 +203,6 @@ document.addEventListener("DOMContentLoaded", () => {
         m.loading(true, "Buscando");
 
         const response = await f.ajax(ajaxRequests, "post", data, "json");
-        console.log(response);
         
 
         response.log.forEach(log => {
@@ -221,11 +220,11 @@ document.addEventListener("DOMContentLoaded", () => {
             `);
 
             document.querySelector("#AllLogs").append(logElement);
-            logsChargeds += 10;
-
-            if (logsChargeds >= response.allLogs) f.remove(".see-more");
-
+            
         });
+        
+        logsChargeds += 10;
+        if (logsChargeds >= response.allLogs) f.remove(".see-more");
 
         m.loading(false);
 

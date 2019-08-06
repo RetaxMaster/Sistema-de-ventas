@@ -32,7 +32,7 @@
         <div class="card">
             <p class="description">{{ $sale->comment }}</p>
             <div class="price-container">
-                <span class="price">{{ parse_money($sale->total) }} ARS</span>
+                <span class="price"><span id="Total">{{ parse_money($sale->total) }}</span> ARS</span>
             </div>
             <div class="info">
                 <span class="tag">Pagado con:</span>
@@ -48,7 +48,7 @@
         </div>
     </section>
     <section class="card products wrapped">
-        @foreach ($sale->solds as $sold)
+        @foreach ($sale->solds->sortByDesc("id") as $sold)
         <article class="product" id="{{ $sold->id }}">
             <div class="image-container">
                 <img src="{{ asset(env("uploaded_images").$sold->productinfo->image) }}" alt="Imagen del producto">
@@ -108,7 +108,7 @@
         </div>
     </section>
     <div class="button-container">
-        <button class="btn btn-danger" id="{{$sale->id}}">Eliminar venta</button>
+        <button class="btn btn-danger delete-sale" id="{{$sale->id}}">Eliminar venta</button>
     </div>
 </div>
 @endsection

@@ -141,6 +141,10 @@ p {
     font-size: 13px;
 }
 
+.out-of-stock {
+    color: #e74c3c;
+}
+
 /* Botones */
 
 .button-container {

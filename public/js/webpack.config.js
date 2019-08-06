@@ -24,9 +24,9 @@ module.exports = {
 const path = require('path');
 
 module.exports = {
-    entry: './input/scripts/sales.js',
+    entry: './input/scripts/caja.js',
     output: {
-        filename: 'sales.bundle.js',
+        filename: 'caja.bundle.js',
         path: path.join(__dirname, 'output')
     },
     module: {
