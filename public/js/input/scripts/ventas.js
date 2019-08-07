@@ -279,7 +279,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     insertNoProducts(document.querySelector("#ShoppingCart .resumen .resumen-container"));
                     document.querySelector("#Vuelto").textContent = "0.00";
                     document.querySelector("#sellForm").reset();
-                    swal("¡Venta realizada!", "La venta ha sido realziada con éxito", "success")
+                    
+                    //Preguntamos si desea descargar el ticket
+                    const download = await swal({
+                        title: "¡Venta realizada!",
+                        text: '¿Quieres descargar el ticket? Podrás descargarlo después desde la sección de "vendidos".',
+                        icon: "success",
+                        buttons: ["No", "Descargar"],
+                        dangerMode: false,
+                    });
+
+                    if (download) {
+                        window.open(route("ticket", {
+                            sale: response.id
+                        }).url());
+                    }
                 }
                 else {
                     swal("Error", response.message, "error");

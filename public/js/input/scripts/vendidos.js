@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelector("#sold-products .description").textContent = response.description;
         document.querySelector("#edit").href = route("sale", id.slice(1)).url();
+        document.querySelector("#ticket").href = route("ticket", id.slice(1)).url();
         
         f.remove("#sold-products .all-products article");
         

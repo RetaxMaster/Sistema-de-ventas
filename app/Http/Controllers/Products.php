@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Products as ProductDatabase;
 use App\Categories;
 use App\Providers;
+use App\Sales;
 
 use Illuminate\Http\Request;
 
@@ -25,6 +27,16 @@ class Products extends Controller {
         $variables = compact("categories", "providers", "products");
 
         return view("products", $variables);
+    }
+
+    //Obtiene el ticket
+    public function getTicket(Sales $sale) {
+
+        $date = get_short_date_from_timestamp($sale->created_at)." ".get_time_from_timestamp($sale->created_at);
+        $disccount = (($sale->disccount * $sale->subtotal) / 100);
+        $variables = compact("sale", "date", "disccount");
+        $pdf = PDF::loadView("tickets/ticket", $variables);
+        return $pdf->stream();
     }
 
 }

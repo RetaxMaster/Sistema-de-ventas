@@ -29,9 +29,10 @@ class AjaxController extends Controller {
                 if(Data::isOpen()){
                     $cart = request()->all();
                     $disccount = $cart["disccount"];
-                    $total = $cart["total"];
+                    $subtotal = $cart["total"];
                     $payment_method = $cart["payment_method"];
                     $comment = $cart["comment"];
+                    $total = $subtotal -(($disccount * $subtotal) / 100);
                     unset($cart["disccount"]);
                     unset($cart["total"]);
                     unset($cart["mode"]);
@@ -46,6 +47,7 @@ class AjaxController extends Controller {
                         "user" => 1,
                         "disccount" => $disccount,
                         "payment_method" => $payment_method,
+                        "subtotal" => $subtotal,
                         "total" => $total,
                         "comment" => $comment != "" ? $comment : null,
                         "ticket_url" => "asd"
@@ -77,6 +79,7 @@ class AjaxController extends Controller {
                     //Actualizo el total de la caja
                     Data::updatePrice($total, "add");
                     $response["status"] = "true";
+                    $response["id"] = $saleId;
                 }
                 else {
                     $response["status"] = "false";

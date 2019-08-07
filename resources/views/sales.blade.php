@@ -43,7 +43,7 @@
                 <span>{{ get_full_date($sale->created_at) }}</span>
             </div><br>
             <div class="button-container">
-                <button class="btn btn-success">Descargar ticket</button>
+                <a href="{{ route("ticket", ["sale" => $sale->id]) }}" target="_blank"><button class="btn btn-success">Descargar ticket</button></a>
             </div>
         </div>
     </section>

@@ -1,0 +1,137 @@
+/* Estilos generales */
+
+.info {
+    font-size: 13px;
+    color: #a5a5a5;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.table-header {
+    background: #bfbfbf;
+}
+
+/* ->Estilos generales */
+
+/* Header */
+
+header {
+    position: relative;
+    display: inline-block;
+    height: 80px;
+    widows: 100%;
+    border-bottom: 1px solid #ccc;
+    background: #2C3E50;
+}
+
+header h1 {
+    color: #fff !important;
+}
+
+header .image-container {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    width: 130px;
+    left: 30px;
+}
+
+header h1 {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+}
+
+/* ->Header */
+
+/* Información de la tienda */
+
+#StoreInfo {
+    border-bottom: 1px solid #ccc;
+    height: 60px;
+}
+
+#StoreInfo > div {
+    position: relative;
+    height: 20px;
+}
+
+#StoreInfo > div > span {
+    text-align: center;
+}
+
+#StoreInfo > div > span.first {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#StoreInfo > div > span.second {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
+
+#StoreInfo > div > span.third {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* ->Información de la tienda */
+
+/* Resumen */
+
+#Resumen {
+    display: block;
+}
+
+#Resumen table {
+    margin: 50px auto;
+}
+
+table tr td {
+    border: 1px solid #ccc;
+    padding: 2px 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+table tr td.no-border {
+    border: none;
+    text-align: right;
+    padding: 3px 10px;
+}
+
+table tr td.no-border.title {
+    font-weight: bold;
+}
+
+/* ->Resumen */
+
+/* Documento no válido como factura */
+
+#NoValid {
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-top: 10px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+    background: #181818;
+    color: #fff;
+}
+
+/* ->Documento no válido como factura */

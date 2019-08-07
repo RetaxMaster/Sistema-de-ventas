@@ -23,13 +23,13 @@
                 </div>
                 <div class="modal-card" id="sold-products">
                     <h2>Comentario</h2>
-                    <p class="description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus nemo recusandae velit nam similique aperiam nisi sequi odit, rerum illo ipsam officiis molestias vel? In animi quis possimus est maiores.</p>
+                    <p class="description"></p>
                     <h2>Productos</h2>
                     <div class="all-products">
                     </div>
                     <div class="button-container">
                         <a href="#" id="edit"><button class="btn btn-primary">Editar</button></a>
-                        <button class="btn btn-success">Descargar ticket</button>
+                        <a href="#" id="ticket" target="_blank"><button class="btn btn-success">Descargar ticket</button></a>
                     </div>
                 </div>
             </div>

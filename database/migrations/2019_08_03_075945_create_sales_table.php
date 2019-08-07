@@ -18,6 +18,7 @@ class CreateSalesTable extends Migration
             $table->bigInteger("user")->unsigned();            
             $table->integer("disccount")->default(0);
             $table->tinyInteger("payment_method");
+            $table->float("subtotal");
             $table->float("total");
             $table->text("comment")->nullable()->default(null);
             $table->string("ticket_url");
