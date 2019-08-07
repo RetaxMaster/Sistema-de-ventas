@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Schema;
 use App\Products as ProductDatabase;
 use App\Categories;
 use App\Providers;
@@ -37,6 +40,15 @@ class Products extends Controller {
         $variables = compact("sale", "date", "disccount");
         $pdf = PDF::loadView("tickets/ticket", $variables);
         return $pdf->stream();
+    }
+
+    //Exporta la lista de productos
+    public function export() {
+        return Excel::download(new ProductsExport, 'Productos.xlsx');
+    }
+
+    public function test() {
+
     }
 
 }

@@ -304,8 +304,9 @@ class AjaxController extends Controller {
                     if (request()->hasFile("Picture")) {
                         $image = RetaxMaster::uploadImage(request()->file("Picture"));
                         if (isset($image["name"])) {
+                            $oldImage = public_path()."/media/images/uploaded_images/".$product->image;
                             //Primero busco la imagen actual para quitarla
-                            File::delete(public_path()."/media/images/uploaded_images/".$product->image);
+                            if (file_exists($oldImage)) File::delete($oldImage);
                             $product->image = $image["name"];
                             $response["image"] = $image["name"];
                         }
@@ -376,7 +377,9 @@ class AjaxController extends Controller {
                     
                     //Insertamos en la tabla de vendidos
                     $price = $product->public_price * $quantity;
-                    $sale->total += $price;
+                    $subtotal = $sale->subtotal + $price;
+                    $sale->subtotal = $subtotal;
+                    $sale->total = $subtotal - (($sale->disccount * $subtotal) / 100);
                     $sold = Sold::newSale($product->id, $quantity, $price, $saleId);
                     $sale->save();
                     $sale->fresh();

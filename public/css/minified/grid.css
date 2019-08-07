@@ -18,7 +18,7 @@
 #Productos {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(7, auto);
+    grid-template-rows: repeat(8, auto);
     grid-gap: 20px 16px;
     grid-template-areas: "title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1 title1"
                          "image1 image1 image1 info   info   info   info   info   info   info   info   info  "
@@ -27,6 +27,7 @@
                          "allpro allpro allpro allpro allpro allpro allcat allcat allcat allcat allcat allcat"
                          "title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2"
                          "produc produc produc produc produc produc produc produc produc produc produc produc"
+                         "export export export export export export export export export export export export"
                          
 
 }

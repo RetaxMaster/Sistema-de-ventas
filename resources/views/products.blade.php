@@ -297,5 +297,8 @@
             @endforelse
         </div>
     </section>
+    <section class="button-container">
+        <a href="{{ route("products.export") }}" target="_blank"><button class="btn btn-info btn-lg">Exportar la lista de productos</button></a>
+    </section>
 </div>
 @endsection

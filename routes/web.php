@@ -31,6 +31,10 @@ Route::get('/sale/{sale}', "Store@getSales")->name("sale");
 
 Route::get('/ticket/{sale}', "Products@getTicket")->name("ticket");
 
+Route::get('/products/export', "Products@export")->name("products.export");
+
+Route::get('/test', "Products@test")->name("test");
+
 //Post routes
 
 Route::post('/ajax-requests', "AjaxController@get");

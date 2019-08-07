@@ -9,7 +9,8 @@
 #Productos section:nth-child(7) { grid-area: addcat }
 #Productos section:nth-child(8) { grid-area: allcat }
 #Productos h2:nth-child(9) { grid-area: title2 }
-#Productos section:last-child { grid-area: produc }
+#Productos section:nth-child(10) { grid-area: produc }
+#Productos section:last-child { grid-area: export }
 
 /* ->Asignando secciones a la grid */
 
