@@ -115,6 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Busca un producto
     
     const insertProduct = (name, description, image, price, id, stock) => {
+        console.log(stock);
+        
         const actions = stock > 0 ? `   
             <span class="price">${f.parseMoney(price)} ARS</span>
             <div class="button-container">
@@ -127,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         const newElement = f.createHTMLNode(`
             
-            <article class="product" data-id="${id}" data-name="${name}" data-price="${price}">
+            <article class="product" data-id="p${id}" data-name="${name}" data-price="${price}" data-stock="${stock}">
                 <div class="image-container">
                     <img src="${uploaded_images}${image}" alt="Imagen del producto">
                 </div>
@@ -157,23 +159,30 @@ document.addEventListener("DOMContentLoaded", () => {
             allProducts.append(newElement);
         }
     }
-    
-    const searchProduct = document.querySelector("#SearchProduct");
-    eventOne("keyup", searchProduct, async function () {
 
+    //Función que busca los productos
+    const getProducts = async query => {
         const data = {
             mode: "getProductList",
-            query: this.value
+            query: query
         }
 
         const response = await f.ajax(ajaxRequests, "post", data, "json");
+        console.log(response);
+        
         //Eliminamos los elementos que estén
         f.remove("#AllProducts .card > .product");
 
         //Los insertamos
         response.query.forEach(product => {
-            insertProduct(product.name, product.description, product.image, product.public_price, product.id, product.stock);      
+            insertProduct(product.name, product.description, product.image, product.public_price, product.id, product.stock);
         });
+    }
+    
+    const searchProduct = document.querySelector("#SearchProduct");
+    eventOne("keyup", searchProduct, async function () {
+
+        getProducts(this.value);
 
     }, true);
     
@@ -271,14 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 m.loading(false);
 
                 if (response.status == "true") {
-                    //Reseteamos el carrito
-                    cart = {};
-                    total = 0;
-                    disccount = 0;
-                    updateResumen();
-                    insertNoProducts(document.querySelector("#ShoppingCart .resumen .resumen-container"));
-                    document.querySelector("#Vuelto").textContent = "0.00";
-                    document.querySelector("#sellForm").reset();
                     
                     //Preguntamos si desea descargar el ticket
                     const download = await swal({
@@ -296,19 +297,40 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
                 else {
-                    swal("Error", response.message, "error");
+                    if (response.outOfStock == "true") {
+                        let productsOutOfStock = "" ;
+
+                        response.productsOutOfStock.forEach(productName => {
+                            productsOutOfStock += `${productName}\n`;
+                        });
+
+                        const message = `${response.message}\n\n${productsOutOfStock}\nPor favor pide al administrador que agregue más productos y recarga la página.`;
+                        swal("Venta NO realizada", message, "error");
+                    }
+                    else {
+                        swal("Error", response.message, "error");
+                    }
                 }
 
             }
             else {
                 swal("Un momento", "Elige un método de pago", "warning");                
             }
+
+            //Reseteamos el carrito
+            cart = {};
+            total = 0;
+            disccount = 0;
+            updateResumen();
+            insertNoProducts(document.querySelector("#ShoppingCart .resumen .resumen-container"));
+            document.querySelector("#Vuelto").textContent = "0.00";
+            document.querySelector("#sellForm").reset();
+            getProducts("");
         }
         else {
             swal("Error", "No hay artículos en el carrito", "error");
         }
         
-
     }, true)
     
     // -> Vender los productos

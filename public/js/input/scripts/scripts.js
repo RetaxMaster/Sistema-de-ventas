@@ -10,7 +10,11 @@ export const generalScripts = () => {
     //Cerrar la ventana al hacer click afuera
     document.addEventListener("click", e => {
         let _this = e.target;
-        if (_this.classList.contains('close-modal') || _this.classList.contains('modal-main')) m.closeModal();
+        console.log(document.querySelector("#loading").style.display);
+        console.log(_this.classList);
+        
+        
+        if ((_this.classList.contains('close-modal') || _this.classList.contains('modal-main')) && document.querySelector("#loading").style.display != "block") m.closeModal();
     });
 
     // -> Ventana modal

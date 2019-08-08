@@ -47,6 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeCashRegister = document.querySelector("#close-cash-register");
     eventOne("click", closeCashRegister, async function () {
         m.loading(true, "Cerrando");
+        setTimeout(() => {
+            m.loading(true, "Creando la copia de seguridad y subiendo archivos a Google Drive, esto puede tomar algunos minutos, por favor espere.");            
+        }, 3000);
 
         const data = {
             mode: "closeCashRegister"    
@@ -65,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#open-cash-register").classList.remove("hidden");
             this.classList.add("hidden");
             createLog(response.log.text, response.log.timestamp);
+            swal("Listo", "¡Caja cerrada y copia de seguridad guardada en Google Drive!", "success")
         }
         else {
             swal("Error", response.message, "error")

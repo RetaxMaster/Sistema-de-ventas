@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 use App\Products;
 use App\Sold;
@@ -21,12 +22,19 @@ class AjaxController extends Controller {
 
         switch ($mode) {
             case 'getProductList':
-                $query = str_replace(" ", "|", request("query"));
-                $response["query"] = Products::take(12)->where("name", "regexp", $query)->orWhere("brand", "regexp", $query)->orWhere("code", "regexp", $query)->get();
+                if (request("query") == "") {
+                    $response["query"] = Products::take(12)->get();
+                }
+                else {
+                    $query = str_replace(" ", "|", request("query"));
+                    $response["query"] = Products::take(12)->where("name", "regexp", $query)->orWhere("brand", "regexp", $query)->orWhere("code", "regexp", $query)->orderBy("id", "DESC")->get();
+                }
                 break;
 
             case "sell":
                 if(Data::isOpen()){
+                    $canSell = true;
+                    $productsOutOfStock = [];
                     $cart = request()->all();
                     $disccount = $cart["disccount"];
                     $subtotal = $cart["total"];
@@ -39,49 +47,69 @@ class AjaxController extends Controller {
                     unset($cart["comment"]);
                     unset($cart["payment_method"]);
 
-                    //Primero generamos el ticket
-                    //TODO: Generar ticket
-
-                    //Luego creamos la venta
-                    $sale = Sales::create([
-                        "user" => 1,
-                        "disccount" => $disccount,
-                        "payment_method" => $payment_method,
-                        "subtotal" => $subtotal,
-                        "total" => $total,
-                        "comment" => $comment != "" ? $comment : null,
-                        "ticket_url" => "asd"
-                    ]);
-
-                    $saleId = $sale->id;
-
-                    //Después insertamos cada producto por individual
+                    //Primero verificamos que haya productos en stock
                     foreach ($cart as $key => $product) {
                         $id = (int) substr($key, 1);
                         $quantity = $product["quantity"];
-                        $price = $product["price"];
-                        $name = $product["name"];
 
-                        //Descontamos el stock
                         $product = Products::find($id);
-                        $product->stock -= $quantity;
-                        $product->save();
-
-                        //Lo insertamos en la tabla de ventas
-                        Sold::newSale($id, $quantity, $price, $saleId);
-
-                        //Lo insertamos en los logs
-                        Logs::createLog("Vendió $quantity $name por $$price ARS");
-                        ;
-
+                        if ($quantity > $product->stock) {
+                            $canSell = false;
+                            array_push($productsOutOfStock, $product->name." (Stock: $product->stock)");
+                        }
                     }
-                    
-                    //Actualizo el total de la caja
-                    Data::updatePrice($total, "add");
-                    $response["status"] = "true";
-                    $response["id"] = $saleId;
+
+                    //Si no hay productos fuera del stock
+                    if ($canSell) {
+                        //Luego creamos la venta
+                        $sale = Sales::create([
+                            "user" => 1,
+                            "disccount" => $disccount,
+                            "payment_method" => $payment_method,
+                            "subtotal" => $subtotal,
+                            "total" => $total,
+                            "comment" => $comment != "" ? $comment : null,
+                            "ticket_url" => "asd"
+                        ]);
+    
+                        $saleId = $sale->id;
+    
+                        //Después insertamos cada producto por individual
+                        foreach ($cart as $key => $product) {
+                            $id = (int) substr($key, 1);
+                            $quantity = $product["quantity"];
+                            $price = $product["price"];
+                            $name = $product["name"];
+    
+                            //Descontamos el stock
+                            $product = Products::find($id);
+                            $product->stock -= $quantity;
+                            $product->save();
+    
+                            //Lo insertamos en la tabla de ventas
+                            Sold::newSale($id, $quantity, $price, $saleId);
+    
+                            //Lo insertamos en los logs
+                            Logs::createLog("Vendió $quantity $name por $$price ARS");
+                            ;
+    
+                        }
+                        
+                        //Actualizo el total de la caja
+                        Data::updatePrice($total, "add");
+                        $response["outOfStock"] = "false";
+                        $response["status"] = "true";
+                        $response["id"] = $saleId;
+                    }
+                    else {
+                        $response["status"] = false;
+                        $response["outOfStock"] = "true";
+                        $response["productsOutOfStock"] = $productsOutOfStock;
+                        $response["message"] = "Lo sentimos, los siguientes productos fueron vendidos recientemente por lo que ya no están en el stock o no hay suficientes:";
+                    }
                 }
                 else {
+                    $response["outOfStock"] = "false";
                     $response["status"] = "false";
                     $response["message"] = "No se pueden realizar ventas mientras la caja está cerrada.";
                 }
@@ -92,6 +120,8 @@ class AjaxController extends Controller {
                 $open = $mode == "openCashRegister";
                 $action = $open ? "Abrió" : "Cerró";
                 Data::setStatus($open);
+
+                if (!$open) Artisan::call("backup:run");
 
                 $log = "$action la caja con $".Data::getBalance()." ARS";
                 Logs::createLog($log);
