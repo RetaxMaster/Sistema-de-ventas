@@ -63,7 +63,7 @@ class AjaxController extends Controller {
                     if ($canSell) {
                         //Luego creamos la venta
                         $sale = Sales::create([
-                            "user" => 1,
+                            "user" => auth()->user()->id,
                             "disccount" => $disccount,
                             "payment_method" => $payment_method,
                             "subtotal" => $subtotal,

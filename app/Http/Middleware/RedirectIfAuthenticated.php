@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            return (auth()->user()->rol == 1) ? redirect()->route("ventas") : redirect()->route("products");
         }
 
         return $next($request);

@@ -12,16 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {   
 
-        $this->truncateTables(["categories", "providers", "products", "sold", "data", "logs", "users"]);
+        $this->truncateTables(["categories", "providers", "products", "sold", "data", "logs", "users", "sales"]);
 
         $this->call(UsersSeeder::class);
         $this->call(DataSeeder::class);
-        $this->call(CategoriesSeeder::class);
+        /* $this->call(CategoriesSeeder::class);
         $this->call(ProvidersSeeder::class);
         $this->call(ProductsSeeder::class);
         $this->call(SalesSeeder::class);
         $this->call(SoldSeeder::class);
-        $this->call(LogsSeeder::class);
+        $this->call(LogsSeeder::class); */
     }
 
     public function truncateTables(array $tables) {

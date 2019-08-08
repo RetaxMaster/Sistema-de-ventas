@@ -14,6 +14,11 @@ use App\Sales;
 use Illuminate\Http\Request;
 
 class Products extends Controller {
+
+    public function __construct() {
+        $this->middleware("auth");
+        $this->middleware("admin", ["except" => ["getProduct", "getTicket"]]);
+    }
     
     // Regresa la descripción del producto
     public function getProduct(ProductDatabase $product) {
@@ -47,9 +52,6 @@ class Products extends Controller {
     public function export() {
         return Excel::download(new ProductsExport, 'Productos.xlsx');
     }
-
-    public function test() {
-        //Storage::disk('google')->put('test.txt', 'Hello World');
-    }
+    
 
 }

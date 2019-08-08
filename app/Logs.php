@@ -24,7 +24,7 @@ class Logs extends Model {
     public static function createLog($log) {
         parent::create([
             "action" => $log,
-            "user" => 1
+            "user" => auth()->user()->id
         ]);
     }
 }

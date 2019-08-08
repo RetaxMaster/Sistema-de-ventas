@@ -23,6 +23,8 @@ Route::get('/products', "Products@getProductDashboard")->name("products");
 
 Route::get('/login', "Users@getLoginForm")->name("login");
 
+Route::get('/logout', "Users@logout")->name("logout");
+
 Route::get('/register', "Users@getRegisterForm")->name("register");
 
 Route::get('/vendidos/{page}', "Store@getSolds")->name("vendidos");
@@ -33,8 +35,11 @@ Route::get('/ticket/{sale}', "Products@getTicket")->name("ticket");
 
 Route::get('/products/export', "Products@export")->name("products.export");
 
-Route::get('/test', "Products@test")->name("test");
-
 //Post routes
 
-Route::post('/ajax-requests', "AjaxController@get");
+Route::post('/ajax-requests', "AjaxController@get")->name("ajax-requests");
+
+Route::post('/login', "Auth\LoginController@login")->name("post-login");
+
+Route::post('/register', "Auth\RegisterController@create")->name("post-register");
+

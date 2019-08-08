@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'rol', 'password',
     ];
 
     /**
@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
     public static function fillFakeData() {
-        factory(static::class, 2)->create();        
+        factory(static::class)->create();        
     }
 
     // Relaciones

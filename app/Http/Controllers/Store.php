@@ -9,6 +9,13 @@ use App\Sales;
 use App\Products;
 
 class Store extends Controller {
+
+    public function __construct() {
+        $this->middleware("auth");
+        $this->middleware("admin", ["except" => "getSells"]);
+        $this->middleware("user", ["only" => "getSells"]);
+    }
+
     // Regresa la caja
     public function getCashRegister() {
         $data = Data::first();

@@ -23,6 +23,8 @@
                     <img src="{{ asset(env("site_images")."logo.jpg") }}" alt="Logo">
                 </div>
             </a>
+
+            @if (auth()->user())
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                 aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,9 +32,11 @@
         
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav ml-auto">
+                    @if (auth()->user()->rol == 1)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("ventas") }}">Ventas</a>
                     </li>
+                    @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("products") }}">Productos</a>
                     </li>
@@ -44,14 +48,16 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("register") }}">Registrar usuario</a>
+                    @endif
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route("logout") }}">
                             <i class="fas fa-power-off"></i>
                         </a>
                     </li>
                 </ul>
             </div>
+            @endif
         </nav>
     </header>
 

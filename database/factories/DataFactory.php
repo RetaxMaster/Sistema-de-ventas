@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Data::class, function (Faker $faker) {
     return [
-        "cash_register" => 1000.00,
-        "is_open" => true
+        "cash_register" => 0,
+        "is_open" => false
     ];
 });
