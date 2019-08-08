@@ -5,6 +5,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use App\Exports\ProductsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use App\Products as ProductDatabase;
 use App\Categories;
 use App\Providers;
@@ -48,7 +49,7 @@ class Products extends Controller {
     }
 
     public function test() {
-
+        //Storage::disk('google')->put('test.txt', 'Hello World');
     }
 
 }
