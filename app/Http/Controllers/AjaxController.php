@@ -118,17 +118,29 @@ class AjaxController extends Controller {
             case "closeCashRegister":
             case "openCashRegister":
                 $open = $mode == "openCashRegister";
-                $action = $open ? "Abrió" : "Cerró";
-                Data::setStatus($open);
 
-                if (!$open) Artisan::call("backup:run");
+                //Si la acción solicitada es abrir y la caja está abierta, o si la cción solicitada es cerrar y la caja está cerrada, alertamos al usuario
+                if (($open && Data::isOpen()) || (!$open && !Data::isOpen())) {
+                    $action = $open ? "abierta" : "cerrada";
+                    $response["status"] = "false";
+                    $response["isOpenCloseError"] = "true";
+                    $response["message"] = "La caja ya fue $action por otra persona.";
+                }
+                else {
+                    $action = $open ? "Abrió" : "Cerró";
+                    Data::setStatus($open);
+    
+                    if (!$open) Artisan::call("backup:run");
+    
+                    $log = "$action la caja con $".Data::getBalance()." ARS";
+                    Logs::createLog($log);
+                    
+                    $response["status"] = "true";
+                    $response["log"]["text"] = $log;
+                    $response["log"]["timestamp"] = date("Y-m-d H:i:s");
+                    $response["username"] = auth()->user()->username;
+                }
 
-                $log = "$action la caja con $".Data::getBalance()." ARS";
-                Logs::createLog($log);
-                
-                $response["status"] = "true";
-                $response["log"]["text"] = $log;
-                $response["log"]["timestamp"] = date("Y-m-d H:i:s");
                 break;
 
             case 'withdrawal':
@@ -142,6 +154,8 @@ class AjaxController extends Controller {
                     $response["log"]["text"] = $log;
                     $response["log"]["timestamp"] = date("Y-m-d H:i:s");
                     $response["status"] = "true";
+                    $response["username"] = auth()->user()->username;
+                    $response["balance"] = Data::getBalance();
                 }
                 else {
                     $response["status"] = "false";
@@ -160,6 +174,8 @@ class AjaxController extends Controller {
                 $response["log"]["text"] = $log;
                 $response["log"]["timestamp"] = date("Y-m-d H:i:s");
                 $response["status"] = "true";
+                $response["username"] = auth()->user()->username;
+                $response["balance"] = Data::getBalance();
                 break;
 
             case "searchSold":

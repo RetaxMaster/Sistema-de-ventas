@@ -31,12 +31,14 @@ class Data extends Model {
         }
 
         $cash_register->save();
+        $cash_register->fresh();
     }
 
     public static function setStatus(bool $status) {
         $cash_register = parent::first();
         $cash_register->is_open = $status;
         $cash_register->save();
+        $cash_register->fresh();
     }
 
     public static function isOpen() : bool {

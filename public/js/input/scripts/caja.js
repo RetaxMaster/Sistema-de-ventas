@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Crea el historial
     
-    const createLog = (text, datetime) => {
+    const createLog = (text, datetime, username) => {
 
         const log = f.createHTMLNode(`
             <article class="log">
                 <div class="Info">
-                    <span class="user">Usuario:</span>
+                    <span class="user">${username}:</span>
                     <p>${text}</p>
                 </div>
                 <time datetime="${datetime}">
@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const response = await f.ajax(ajaxRequests, "post", data, "json");
-        console.log(response);
 
         m.loading(false);
         
@@ -67,11 +66,17 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#Establecer").disabled = true;
             document.querySelector("#open-cash-register").classList.remove("hidden");
             this.classList.add("hidden");
-            createLog(response.log.text, response.log.timestamp);
+            createLog(response.log.text, response.log.timestamp, response.username);
             swal("Listo", "¡Caja cerrada y copia de seguridad guardada en Google Drive!", "success")
         }
         else {
-            swal("Error", response.message, "error")
+            if (response.isOpenCloseError == "true") {
+                await swal("Un momento", response.message, "warning");
+                document.location.href = route("caja").url();
+            }
+            else {
+                swal("Error", response.message, "error")
+            }
         }
 
     }, true);
@@ -90,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const response = await f.ajax(ajaxRequests, "post", data, "json");
-        console.log(response);
 
         m.loading(false);
         
@@ -101,10 +105,16 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector("#Establecer").disabled = false;
             document.querySelector("#close-cash-register").classList.remove("hidden");
             this.classList.add("hidden");
-            createLog(response.log.text, response.log.timestamp);
+            createLog(response.log.text, response.log.timestamp, response.username);
         }
         else {
-            swal("Error", response.message, "error")
+            if (response.isOpenCloseError == "true") {
+                await swal("Un momento", response.message, "warning");
+                document.location.href = route("caja").url();
+            }
+            else {
+                swal("Error", response.message, "error")
+            }
         }
     }, true);
 
@@ -132,13 +142,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 m.loading(false);
 
                 if (response.status == "true") {
-                    total -= value;
-                    document.querySelector("#Total").textContent = parseFloat(total).toFixed(2);
+                    total = response.balance;
+                    
+                    document.querySelector("#Total").textContent = f.parseMoney(total);
                     totalWithdrawal.value = "";
-                    createLog(response.log.text, response.log.timestamp);
+                    createLog(response.log.text, response.log.timestamp, response.username);
                 }
                 else {
-                    swal("Error", response.message, "error")                
+                    await swal("Error", response.message, "error");
+                    document.location.href = route("caja").url();
                 }
             }
             else {
@@ -153,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // -> Retira dinero
 
-    // Retira dinero
+    // Establece el dinero
     
     const initial = document.querySelector("#Establecer");
     eventOne("click", initial, async function () {
@@ -175,10 +187,10 @@ document.addEventListener("DOMContentLoaded", () => {
             m.loading(false);
 
             if (response.status == "true") {     
-                total = value;
-                document.querySelector("#Total").textContent = parseFloat(total).toFixed(2);
+                total = response.balance;
+                document.querySelector("#Total").textContent = f.parseMoney(total);
                 setInitial.value = "";
-                createLog(response.log.text, response.log.timestamp);
+                createLog(response.log.text, response.log.timestamp, response.username);
             }
             else {
                 swal("Error", response.message, "error");
@@ -191,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }, true);
     
-    // -> Retira dinero
+    // -> Establece el dinero
 
     // Carga los logs
     let logsChargeds = 10;

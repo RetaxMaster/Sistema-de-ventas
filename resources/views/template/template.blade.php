@@ -32,24 +32,25 @@
         
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav ml-auto">
-                    @if (auth()->user()->rol == 1)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("ventas") }}">Ventas</a>
                     </li>
-                    @else
+                    @if (auth()->user()->rol == 2)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("products") }}">Productos</a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("caja") }}">Caja</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("vendidos", ["page" => 1]) }}">Vendidos</a>
                     </li>
+                    @if (auth()->user()->rol == 2)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("register") }}">Registrar usuario</a>
-                    @endif
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route("logout") }}">
                             <i class="fas fa-power-off"></i>

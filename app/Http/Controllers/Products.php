@@ -17,7 +17,7 @@ class Products extends Controller {
 
     public function __construct() {
         $this->middleware("auth");
-        $this->middleware("admin", ["except" => ["getProduct", "getTicket"]]);
+        $this->middleware("admin", ["except" => ["getProduct", "getTicket", "export"]]);
     }
     
     // Regresa la descripción del producto

@@ -11,9 +11,7 @@ use App\Products;
 class Store extends Controller {
 
     public function __construct() {
-        $this->middleware("auth");
-        $this->middleware("admin", ["except" => "getSells"]);
-        $this->middleware("user", ["only" => "getSells"]);
+        $this->middleware("auth");;
     }
 
     // Regresa la caja
