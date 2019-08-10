@@ -78,7 +78,7 @@ class Store extends Controller {
         }
         else {
             $showPagination = false;
-            $solds = [];
+            $sales = [];
             $totalPages = "";
             $page = "";
             $start_for = "";
