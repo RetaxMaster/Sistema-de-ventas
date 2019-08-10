@@ -23,12 +23,12 @@ header {
     height: 80px;
     widows: 100%;
     border-bottom: 1px solid #ccc;
-    background: #2C3E50;
+    /* background: #2C3E50; */
 }
 
-header h1 {
+/* header h1 {
     color: #fff !important;
-}
+} */
 
 header .image-container {
     display: inline-block;
@@ -130,8 +130,8 @@ table tr td.no-border.title {
     text-align: center;
     border-top: 1px solid #ccc;
     padding: 10px 0;
-    background: #181818;
-    color: #fff;
+    /* background: #181818;
+    color: #fff; */
 }
 
 /* ->Documento no válido como factura */
