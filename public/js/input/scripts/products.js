@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const insertProduct = (name, description, image, id) => {
         const newElement = f.createHTMLNode(`
-                    <article class="product" id="${id}">
+                    <article class="product" id="pr-${id}">
                         <div class="image-container">
                             <img src="${uploaded_images}${image}" alt="Imagen del producto">
                         </div>
