@@ -28,7 +28,7 @@ class AjaxController extends Controller {
                 else {
                     //$query = str_replace(" ", "|", request("query"));
                     $query = request("query");
-                    $response["query"] = Products::take(12)->where("name", "like", "%$query%")->orWhere("brand", "regexp", $query)->orWhere("code", "regexp", $query)->orderBy("id", "DESC")->get();
+                    $response["query"] = Products::where("name", "like", "%$query%")->orWhere("brand", "regexp", $query)->orWhere("code", "regexp", $query)->orderBy("id", "DESC")->get();
                 }
                 break;
 
