@@ -31,7 +31,7 @@ class ProductsExport implements FromCollection, WithMapping, WithHeadings, /* Wi
         foreach ($columns as $column) {
             $item[$column] = $product->$column;
             if ($column == "category") $item[$column] = $product->categoryinfo->name;
-            if ($column == "provider") $item[$column] = $product->providerinfo->name;
+            if ($column == "provider" && $product->provider != null) $item[$column] = $product->providerinfo->name;
             if ($column == "sell_type") $item[$column] = ($product->sell_type == 1) ? "Unidad" : (($product->sell_type == 2) ? "Peso" : "Metro");
             if ($column == "image") unset($item[$column]);
             if ($column == "created_at") $item[$column] = Date::dateTimeToExcel($product->created_at);      

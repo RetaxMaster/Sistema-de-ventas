@@ -145,7 +145,7 @@ class AjaxController extends Controller {
                 break;
 
             case 'withdrawal':
-                $value = request("value");
+                $value = (float) request("value");
                 if (Data::getBalance() >= $value) {
                     Data::updatePrice($value, "withdrawal");
                     
@@ -165,7 +165,7 @@ class AjaxController extends Controller {
                 break;
 
             case "setBalance":
-                $value = request("value");
+                $value = (float) request("value");
                 
                 $log = "Estableció el monto de la caja de $".Data::getBalance()." ARS a $$value ARS";
                 Logs::createLog($log);
@@ -414,9 +414,9 @@ class AjaxController extends Controller {
 
             case 'addProductSold':
                     //Obtenemos datos
-                    $quantity = request("quantity");
+                    $quantity = (int) request("quantity");
                     $id = substr(request("productId"), 1);
-                    $saleId = request("saleId");
+                    $saleId = (int) request("saleId");
 
                     //Buscamos en la base de datos
                     $product = Products::find($id);
